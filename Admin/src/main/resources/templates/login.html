@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
+<head th:replace="~{fragments::head}">
+
+</head>
+<body>
+<main>
+    <header class="main-header style-2 navbar">
+        <div class="col-brand">
+            <a th:href="@{/index}" class="brand-wrap">
+                <img th:src="@{/imgs/theme/logo.png}" class="logo" alt="Mangolia Trendz">
+            </a>
+        </div>
+        <div class="col-nav">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+<section class="content-main mt-80 mb-80">
+    <div class="card mx-auto card-login">
+        <div th:if="${param.error}">
+            <div class="alert alert-danger">Invalid Email and Password.</div>
+        </div>
+        <div th:if="${param.logout}">
+            <div class="alert alert-success">You have been logged out.</div>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title mb-4">Sign in</h4>
+            <form method="post" th:action="@{/do-login}">
+                <div class="mb-3">
+                    <input class="form-control" name="username"  placeholder="email" value="sarathrajan10@gmail.com" type="text">
+                </div> <!-- form-group// -->
+                <div class="mb-3">
+                    <input class="form-control" name="password"  placeholder="Password" value="1234" type="password">
+                </div> <!-- form-group// -->
+                <!-- form-group form-check .// -->
+                <div class="mb-4">
+                    <button type="submit" class="btn btn-primary w-100"> Login </button>
+                </div> <!-- form-group// -->
+            </form>
+        </div>
+    </div>
+</section>
+    <footer class="main-footer text-center">
+        <p class="font-xs">
+            <script>
+                document.write(new Date().getFullYear())
+            </script> ©, Mangolia Trendz - Mens Clothing Brand .
+        </p>
+        <p class="font-xs mb-30">All rights reserved</p>
+    </footer>
+</main>
+
+<div th:replace = "~{fragments::script}"></div>
+</body>
+</html>

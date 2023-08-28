@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <title>Update-Address</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/imgs/theme/favicon.svg}">
+    <!-- Template CSS -->
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+<header th:replace="~{fragments::hometop}" ></header>
+
+<div class="card-body">
+    <div th:if = "${success}">
+        <p class = "alert alert-success" th:text = "${success}"></p>
+    </div>
+    <div th:if = "${error}">
+        <p class = "alert alert-danger" th:text = "${error}"></p>
+    </div>
+    <form method="post"  th:object="${addressDto}"  th:action="@{/update-address/{id}(id = ${addressDto.id})}">
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label>Address Line 1<span class="required">*</span></label>
+                <input required="" class="form-control square" name="address_line_1" type="text" th:field="*{address_line_1}">
+                <p th:errors="*{address_line_1}" class="text-danger"
+                   th:if="${#fields.hasErrors('address_line_1')}">
+                </p>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Address Line 2<span class="required">*</span></label>
+                <input required="" class="form-control square" name="address_line_2" type="text" th:field="*{address_line_2}">
+                <p th:errors="*{address_line_2}" class="text-danger"
+                   th:if="${#fields.hasErrors('address_line_2')}">
+                </p>
+            </div>
+            <div class="form-group col-md-12">
+                <label>City <span class="required">*</span></label>
+                <input required="" class="form-control square" name="city" type="text" th:field="*{city}">
+                <p th:errors="*{city}" class="text-danger"
+                   th:if="${#fields.hasErrors('city')}">
+                </p>
+            </div>
+            <div class="form-group col-md-12">
+                <label>Country<span class="required">*</span></label>
+                <input required="" class="form-control square" name="country" type="text" th:field="*{country}">
+                <p th:errors="*{country}" class="text-danger"
+                   th:if="${#fields.hasErrors('country')}">
+                </p>
+            </div>
+            <div class="form-group col-md-12">
+                <label>PinCode<span class="required">*</span></label>
+                <input required="" class="form-control square" name="pincode" type="text" th:field="*{pincode}">
+                <p th:errors="*{pincode}" class="text-danger"
+                   th:if="${#fields.hasErrors('pincode')}">
+                </p>
+            </div>
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-fill-out submit" name="submit" value="Submit">Update</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+<footer th:replace="~{fragments::downbar}"></footer>
+
+
+
+<div th:replace = "~{fragments::script}"></div>
+<script th:src="@{/js/shop.js?v=3.4}"></script>
+</body>
+</html>
