@@ -76,7 +76,7 @@ public class ProductController {
                               RedirectAttributes redirectAttributes) {
         try {
             productService.save(imageProduct, product,sizes_id,colors_id);
-            redirectAttributes.addFlashAttribute("success", "Add new product successfully!");
+            redirectAttributes.addFlashAttribute("success", "Added new product successfully!");
         } catch (Exception e) {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Failed to add new product!");

@@ -2,10 +2,7 @@ package com.mangoliatrendz.customer.controller;
 
 import com.mangoliatrendz.library.dto.AddressDto;
 import com.mangoliatrendz.library.model.*;
-import com.mangoliatrendz.library.service.AddressService;
-import com.mangoliatrendz.library.service.CustomerService;
-import com.mangoliatrendz.library.service.OrderService;
-import com.mangoliatrendz.library.service.ShoppingCartService;
+import com.mangoliatrendz.library.service.*;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
 import com.razorpay.Utils;
@@ -30,10 +27,13 @@ public class OrderController {
     private ShoppingCartService shoppingCartService;
     private AddressService addressService;
 
+    private CouponService couponService;
+
 
     public OrderController(CustomerService customerService, OrderService orderService, ShoppingCartService shoppingCartService,
-                           AddressService addressService) {
+                           AddressService addressService,CouponService couponService) {
 
+        this.couponService=couponService;
         this.addressService=addressService;
         this.customerService = customerService;
         this.orderService = orderService;
@@ -62,16 +62,56 @@ public class OrderController {
             }
         }
 
+    @RequestMapping(value = "/check-out/apply-coupon", method = RequestMethod.POST, params = "action=apply")
+        public String applyCoupon(@RequestParam("couponCode")String couponCode,Principal principal,
+                                  RedirectAttributes attributes,HttpSession session){
+
+
+            if(couponService.findByCouponCode(couponCode.toUpperCase())) {
+
+                Coupon coupon = couponService.findByCode(couponCode.toUpperCase());
+                ShoppingCart cart = customerService.findByEmail(principal.getName()).getCart();
+                Double totalPrice = cart.getTotalPrice();
+                session.setAttribute("totalPrice",totalPrice);
+                Double newTotalPrice = couponService.applyCoupon(couponCode.toUpperCase(), totalPrice);
+
+                shoppingCartService.updateTotalPrice(newTotalPrice, principal.getName());
+
+                attributes.addFlashAttribute("success", "Coupon applied Successfully");
+                attributes.addAttribute("couponCode", couponCode);
+                attributes.addAttribute("couponOff", coupon.getOffPercentage());
+                return "redirect:/check-out";
+            }else{
+                attributes.addFlashAttribute("error", "Coupon Code invalid");
+                return "redirect:/check-out";
+            }
+
+     }
+
+    @RequestMapping(value = "/check-out/apply-coupon", method = RequestMethod.POST, params = "action=remove")
+    public String removeCoupon(Principal principal,RedirectAttributes attributes,
+                               HttpSession session){
+
+        Double totalPrice = (Double) session.getAttribute("totalPrice");
+        shoppingCartService.updateTotalPrice(totalPrice, principal.getName());
+        attributes.addFlashAttribute("success", "Coupon removed Successfully");
+//        session.removeAttribute("totalPrice");
+
+        return "redirect:/check-out";
+    }
+
+
 
     @RequestMapping(value = "/add-order",method = RequestMethod.POST)
     @ResponseBody
     public String createOrder(@RequestBody Map<String,Object> data, Principal principal, HttpSession session, Model model) throws RazorpayException {
             String paymentMethod = data.get("payment_Method").toString();
             Long address_id=Long.parseLong(data.get("addressId").toString());
+            Double oldTotalPrice= (Double)session.getAttribute("totalPrice");
         Customer customer = customerService.findByEmail(principal.getName());
         ShoppingCart cart = customer.getCart();
             if(paymentMethod.equals("COD")){
-            Order order = orderService.save(cart,address_id,paymentMethod);
+            Order order = orderService.save(cart,address_id,paymentMethod,oldTotalPrice);
             session.removeAttribute("totalItems");
             session.setAttribute("orderId",order.getId());
             model.addAttribute("order", order);
@@ -82,7 +122,7 @@ public class OrderController {
 
             return options.toString();
         }else{
-                Order order = orderService.save(cart,address_id,paymentMethod);
+                Order order = orderService.save(cart,address_id,paymentMethod,oldTotalPrice);
                 String orderId=order.getId().toString();
                 session.removeAttribute("totalItems");
                 session.setAttribute("orderId",order.getId());

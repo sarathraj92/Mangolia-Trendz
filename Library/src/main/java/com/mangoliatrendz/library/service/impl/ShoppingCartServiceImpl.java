@@ -147,6 +147,18 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return shoppingCartRepository.save(shoppingCart);
     }
 
+    @Override
+    public ShoppingCart updateTotalPrice(Double newTotalPrice,String username) {
+        Customer customer = customerService.findByEmail(username);
+        ShoppingCart shoppingCart = customer.getCart();
+        shoppingCart.setTotalPrice(newTotalPrice);
+
+        shoppingCartRepository.save(shoppingCart);
+
+
+        return shoppingCart;
+    }
+
 
     @Transactional
     @Override

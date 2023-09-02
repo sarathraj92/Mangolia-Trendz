@@ -21,6 +21,8 @@ public class Order {
     private Date deliveryDate;
     private String orderStatus;
     private double totalPrice;
+    @Column(nullable = true)
+    private Double discountPrice;
     private int quantity;
     private String paymentMethod;
     private boolean isAccept;

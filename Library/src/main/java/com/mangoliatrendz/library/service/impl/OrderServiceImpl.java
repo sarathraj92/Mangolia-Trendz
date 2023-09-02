@@ -9,6 +9,7 @@ import com.mangoliatrendz.library.service.OrderService;
 import com.mangoliatrendz.library.service.ShoppingCartService;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order save(ShoppingCart cart,long address_id,String paymentMethod) {
+    public Order save(ShoppingCart cart,long address_id,String paymentMethod,Double oldTotalPrice) {
         Order order = new Order();
         order.setOrderDate(new Date());
         order.setCustomer(cart.getCustomer());
@@ -46,6 +47,11 @@ public class OrderServiceImpl implements OrderService {
         order.setShippingAddress(addressService.findByIdOrder(address_id));
         order.setAccept(false);
         order.setOrderStatus("Pending");
+        if(oldTotalPrice != null){
+            Double discount= oldTotalPrice - cart.getTotalPrice();
+            String formattedDiscount = String.format("%.2f", discount);
+            order.setDiscountPrice(Double.parseDouble(formattedDiscount));
+        }
         List<OrderDetail> orderDetailList=new ArrayList<>();
         for(CartItem item : cart.getCartItems()){
             Product product=item.getProduct();
@@ -72,9 +78,11 @@ public class OrderServiceImpl implements OrderService {
         List<OrderDetail>orderDetailList=order.getOrderDetails();
         for(OrderDetail orderDetail : orderDetailList){
             Product product = orderDetail.getProduct();
-            int currentQuantity= product.getCurrentQuantity();
-            product.setCurrentQuantity(currentQuantity + orderDetail.getQuantity());
-            productRepository.save(product);
+            if(product != null) {
+                int currentQuantity = product.getCurrentQuantity();
+                product.setCurrentQuantity(currentQuantity + orderDetail.getQuantity());
+                productRepository.save(product);
+            }
         }
         order.setOrderStatus("Cancelled");
         orderRepository.save(order);

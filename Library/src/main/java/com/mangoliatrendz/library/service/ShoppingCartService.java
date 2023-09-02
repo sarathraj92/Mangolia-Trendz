@@ -15,5 +15,7 @@ public interface ShoppingCartService {
 
     ShoppingCart removeItemFromCart(ProductDto productDto, String username);
 
+    ShoppingCart updateTotalPrice(Double newTotalPrice,String username);
+
     void deleteCartById(long id);
 }

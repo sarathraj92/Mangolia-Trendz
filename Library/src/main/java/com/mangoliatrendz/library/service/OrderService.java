@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface OrderService {
 
-    Order save(ShoppingCart cart,long address_id,String paymentMethod);
+    Order save(ShoppingCart cart,long address_id,String paymentMethod,Double oldTotalPrice);
 
     void cancelOrder(long order_id);
 

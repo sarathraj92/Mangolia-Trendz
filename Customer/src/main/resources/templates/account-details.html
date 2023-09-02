@@ -19,9 +19,9 @@
 
 <div class="card-body">
   <div class="card-body">
-    <h2 class="formTitle">
+    <h5 class="formTitle">
       <i>Personal Information</i>
-    </h2>
+    </h5>
     <div th:if="${success}" class="text-center alert alert-success">
       <p th:text="${success}"></p>
     </div>
@@ -56,9 +56,9 @@
 
     <div class="card-body">
     <form th:action="@{/change-password}" method="post" name="passwordForm" id="passswordForm">
-      <h2 class="formTitle">
+      <h5 class="formTitle">
         <i>Change Password</i>
-      </h2>
+      </h5>
       <div th:if = "${message}" class="text-center alert">
         <p th:text = "${message}"></p>
       </div>

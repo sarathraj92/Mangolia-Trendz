@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <title>Admin Dashboard</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/imgs/theme/favicon.svg}">
+    <!-- Template CSS -->
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+<div class="screen-overlay"></div>
+<aside th:replace = "~{fragments::sidebar}"></aside>
+
+<main class="main-wrap">
+    <header th:replace="~{fragments::topbar}"></header>
+
+    <div class="container">
+
+        <a th:href="@{/offers/add-offer}" class = "btn btn-xs btn-primary">Add Offer</a>
+
+        <p th:if="${size == 0} ">No Offers</p>
+<!--        <div th:if = "${success}" class = "text-center alert alert-success">-->
+<!--            <p th:text = "${success}"></p>-->
+<!--        </div>-->
+<!--        <div th:if = "${error}" class="text-center alert alert-danger">-->
+<!--            <p th:text = "${error}"></p>-->
+<!--        </div>-->
+        <table id="dataTable" class="table table-bordered" th:if = "${size > 0}">
+            <thead>
+            <tr>
+                <th scope="col">Offer Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Discount %</th>
+                <th scope="col">Offer For</th>
+                <th scope="col">Offer Applied On</th>
+                <th scope="col">Offer ExpiryDate</th>
+                <th scope="col">Update</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each = "offer : ${offers}">
+                <td th:text = "${offer.name}"></td>
+                <td th:text = "${offer.description}"></td>
+                <td th:text = "${offer.offPercentage}"></td>
+                <td th:text = "${offer.offerType}"></td>
+                <td th:text = "${offer.applicableForName}"></td>
+                <td th:text = "${offer.expiryDate}"></td>
+                <td><a th:href="@{/update-offer/{id}(id= ${offer.id})}" class="btn btn-xs btn-primary">Update</a></td>
+                <td>
+                    <a th:if="${offer.enabled} == true" th:href="@{/disable-offer/{id}(id = ${offer.id})}"
+                       class="btn btn-xs btn-danger" onclick="if (!(confirm('Are you sure you want to Disable this coupon?'))) return false">Disable</a>
+                    <a th:if="${offer.enabled} == false" onclick="if (!(confirm('Are you sure you want to Enable this coupon?'))) return false" th:href="@{/enable-offer/{id}(id = ${offer.id})}"
+                       class=" btn btn-xs btn-primary">Enable</a>
+                    <a  th:href="@{/delete-offer/{id}(id = ${offer.id})}"
+                        class=" btn btn-xs btn-danger-" onclick="if (!(confirm('Are you sure you want to Delete this coupon?'))) return false">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+
+
+
+
+    </div>
+
+
+
+
+</main>
+
+
+<div th:replace = "~{fragments::script}"></div>
+
+</body>
+</html>
