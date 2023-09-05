@@ -142,8 +142,8 @@ public class OrderController {
 
     @RequestMapping(value = "/verify-payment",method = RequestMethod.POST)
     @ResponseBody
-    public String verifyPayment(@RequestBody Map<String,Object> data,HttpSession session) throws RazorpayException {
-        System.out.println(data);
+    public String verifyPayment(@RequestBody Map<String,Object> data,HttpSession session,Principal principal) throws RazorpayException {
+
         String secret= "nNZOZQUWSrxXLRZ5C9wvOmfQ";
         String order_id= data.get("razorpay_order_id").toString();
         String payment_id=data.get("razorpay_payment_id").toString();
@@ -154,6 +154,16 @@ public class OrderController {
         options.put("razorpay_signature", signature);
 
         boolean status =  Utils.verifyPaymentSignature(options, secret);
+        System.out.println(status);
+        Order order=orderService.findOrderById((Long)session.getAttribute("orderId"));
+        if(status){
+            orderService.updatePayment(order,status);
+            Customer customer=customerService.findByEmail(principal.getName());
+            ShoppingCart cart = customer.getCart();
+            shoppingCartService.deleteCartById(cart.getId());
+        }else {
+            orderService.updatePayment(order, status);
+        }
         JSONObject response = new JSONObject();
         response.put("status",status);
 

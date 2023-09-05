@@ -29,6 +29,8 @@ public interface OrderService {
 
     List<Double> getTotalAmountForEachMonth();
 
+    void updatePayment(Order order,boolean status);
+
 
 
 

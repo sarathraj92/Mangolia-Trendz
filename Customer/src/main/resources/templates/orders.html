@@ -37,6 +37,7 @@
 
                             <th>Total Price</th>
                             <th class="total-pr">Payment Method</th>
+                            <th>Payment Status</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -57,7 +58,10 @@
                                 <p style="color: red">₹ [(${order.totalPrice})]</p>
                             </td>
                             <td class="total-pr" style="color: black">
-                                <span></span>[(${order.paymentMethod})]</span>
+                                <span>[(${order.paymentMethod})]</span>
+                            </td>
+                            <td>
+                                <span>[(${order.paymentStatus})]</span>
                             </td>
                             <td>
                                 <a th:href="@{/order-view/{id}(id = ${order.id})}" class="button-cancel" >View</a>

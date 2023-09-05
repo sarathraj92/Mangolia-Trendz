@@ -67,7 +67,10 @@ public class OrderServiceImpl implements OrderService {
             orderDetailList.add(orderDetail);
         }
         order.setOrderDetails(orderDetailList);
-        shoppingCartService.deleteCartById(cart.getId());
+        if(paymentMethod.equals("COD")) {
+            order.setPaymentStatus("Pending");
+            shoppingCartService.deleteCartById(cart.getId());
+        }
 
         return orderRepository.save(order);
     }
@@ -173,5 +176,18 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return totalRevenuePerMonth;
+    }
+
+    @Override
+    public void updatePayment(Order order,boolean status) {
+
+        if(status){
+            order.setPaymentStatus("Paid");
+            orderRepository.save(order);
+        }else {
+            order.setPaymentStatus("Failed");
+            orderRepository.save(order);
+        }
+
     }
 }

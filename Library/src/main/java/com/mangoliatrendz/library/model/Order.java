@@ -27,6 +27,8 @@ public class Order {
     private String paymentMethod;
     private boolean isAccept;
 
+    private String paymentStatus;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="address_id",referencedColumnName = "address_id")
     private Address shippingAddress;
