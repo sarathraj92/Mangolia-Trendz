@@ -18,6 +18,8 @@ public interface CategoryRepository extends JpaRepository<Category,Long> {
     @Query(value = "select COUNT(*) FROM Category")
     Long countAllCategories();
 
+    Category findById(long id);
+
 
 
 

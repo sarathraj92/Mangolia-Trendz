@@ -96,8 +96,9 @@
               </div>
               <h2><a th:text = "${product.name}" href="#"></a></h2>
               <div class="product-price">
-                <span>₹</span><span th:text = "${product.costPrice}"></span>
-<!--                <span class="old-price">$245.8</span>-->
+               <span th:unless="${product.salePrice > 0}">₹[(${product.costPrice})]</span>
+                <span th:if="${product.salePrice > 0}">₹[(${product.salePrice})]</span>
+                <span th:if="${product.salePrice > 0}" class="old-price">₹[(${product.costPrice})]</span>
               </div>
               <p th:text="${product.shortDescription}" class="mt-15"></p>
               <div class="detail-extralink" >

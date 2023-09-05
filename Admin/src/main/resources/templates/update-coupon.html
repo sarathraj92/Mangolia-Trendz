@@ -30,7 +30,7 @@
         <!--    </div>-->
 
         <h2 class="mt-2">Update Coupon</h2>
-        <form th:action="@{/update-coupon/{id}(id = ${coupon.id})}" th:object="${coupon}"  method="post">
+        <form th:action="@{/coupons/update-coupon/{id}(id=${coupon.id})}" th:object="${coupon}"  method="post">
 
 
             <div class="col-md-4">

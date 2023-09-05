@@ -28,12 +28,12 @@
         <a th:href="@{/offers/add-offer}" class = "btn btn-xs btn-primary">Add Offer</a>
 
         <p th:if="${size == 0} ">No Offers</p>
-<!--        <div th:if = "${success}" class = "text-center alert alert-success">-->
-<!--            <p th:text = "${success}"></p>-->
-<!--        </div>-->
-<!--        <div th:if = "${error}" class="text-center alert alert-danger">-->
-<!--            <p th:text = "${error}"></p>-->
-<!--        </div>-->
+        <div th:if = "${success}" class = "text-center alert alert-success">
+            <p th:text = "${success}"></p>
+        </div>
+        <div th:if = "${error}" class="text-center alert alert-danger">
+            <p th:text = "${error}"></p>
+        </div>
         <table id="dataTable" class="table table-bordered" th:if = "${size > 0}">
             <thead>
             <tr>
@@ -42,7 +42,6 @@
                 <th scope="col">Discount %</th>
                 <th scope="col">Offer For</th>
                 <th scope="col">Offer Applied On</th>
-                <th scope="col">Offer ExpiryDate</th>
                 <th scope="col">Update</th>
                 <th scope="col">Action</th>
             </tr>
@@ -53,9 +52,11 @@
                 <td th:text = "${offer.description}"></td>
                 <td th:text = "${offer.offPercentage}"></td>
                 <td th:text = "${offer.offerType}"></td>
-                <td th:text = "${offer.applicableForName}"></td>
-                <td th:text = "${offer.expiryDate}"></td>
-                <td><a th:href="@{/update-offer/{id}(id= ${offer.id})}" class="btn btn-xs btn-primary">Update</a></td>
+                <td >
+                    <span th:if="${offer.offerProductId != null}" th:text = "${offer.applicableForProductName}"></span>
+                    <span th:if="${offer.offerCategoryId != null}" th:text = "${offer.applicableForCategoryName}"></span>
+                </td>
+                <td><a th:href="@{/offers/update-offer/{id}(id= ${offer.id})}" class="btn btn-xs btn-primary">Update</a></td>
                 <td>
                     <a th:if="${offer.enabled} == true" th:href="@{/disable-offer/{id}(id = ${offer.id})}"
                        class="btn btn-xs btn-danger" onclick="if (!(confirm('Are you sure you want to Disable this coupon?'))) return false">Disable</a>

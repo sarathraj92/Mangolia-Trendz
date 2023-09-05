@@ -79,7 +79,7 @@ public class CouponController {
     }
 
 
-    @GetMapping("/update-coupon/{id}")
+    @GetMapping("/coupons/update-coupon/{id}")
     public String updateCouponForm(@PathVariable("id") long id, Model model,Principal principal){
 
         if(principal==null){
@@ -95,7 +95,7 @@ public class CouponController {
     }
 
 
-    @PostMapping("/update-coupon/{id}")
+    @PostMapping("/coupons/update-coupon/{id}")
     public String updateCoupon(@ModelAttribute("coupon") CouponDto couponDto,
                                RedirectAttributes redirectAttributes){
 

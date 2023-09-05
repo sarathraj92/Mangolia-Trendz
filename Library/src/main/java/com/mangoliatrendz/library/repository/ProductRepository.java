@@ -53,5 +53,8 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     List<Object[]> getProductsStatsForConfirmedOrdersBetweenDates(@Param("startDate") Date startDate,@Param("endDate") Date endDate);
 
 
+    List<Product> findAllByCategoryId(long id);
+
+
 
 }

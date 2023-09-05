@@ -39,6 +39,10 @@ public interface ProductService {
 
     List<Object[]> getProductsStatsBetweenDates(Date startDate,Date endDate);
 
+    Product findBYId(long id);
+
+    List<Product> findProductsByCategory(long id);
+
 
 
 }

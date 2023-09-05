@@ -57,7 +57,7 @@
         <td th:text = "${coupon.count}"></td>
         <td th:text = "${coupon.maxOff}"></td>
         <td th:text = "${coupon.expiryDate}"></td>
-        <td><a th:href="@{/update-coupon/{id}(id= ${coupon.id})}" class="btn btn-xs btn-primary">Update</a></td>
+        <td><a th:href="@{/coupons/update-coupon/{id}(id= ${coupon.id})}" class="btn btn-xs btn-primary">Update</a></td>
         <td>
           <a th:if="${coupon.enabled} == true" th:href="@{/disable-coupon/{id}(id = ${coupon.id})}"
              class="btn btn-xs btn-danger" onclick="if (!(confirm('Are you sure you want to Disable this coupon?'))) return false">Disable</a>

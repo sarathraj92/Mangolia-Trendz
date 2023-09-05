@@ -130,6 +130,7 @@ public class ProductServiceImpl implements ProductService {
         productDto.setSizes(product.getSizes());
         productDto.setCurrentQuantity(product.getCurrentQuantity());
         productDto.setCostPrice(product.getCostPrice());
+        productDto.setSalePrice(product.getSalePrice());
         productDto.setCategory(product.getCategory());
         productDto.setActivated(product.is_activated());
         return productDto;
@@ -253,6 +254,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Object[]> getProductsStatsBetweenDates(Date startDate, Date endDate) {
         return productRepository.getProductsStatsForConfirmedOrdersBetweenDates(startDate,endDate);
+    }
+
+    @Override
+    public Product findBYId(long id) {
+        return productRepository.findById(id);
+    }
+
+    @Override
+    public List<Product> findProductsByCategory(long id) {
+        return productRepository.findAllByCategoryId(id);
     }
 
 

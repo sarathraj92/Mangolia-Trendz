@@ -23,16 +23,18 @@ public class Offer {
 
     private String description;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate expiryDate;
-
     private int offPercentage;
 
     private String offerType;
 
-    private Long applicableForId;
-
-    private String applicableForName;
+    @Column(nullable = true)
+    private Long offerProductId;
+    @Column(nullable = true)
+    private String applicableForProductName;
+    @Column(nullable = true)
+    private Long offerCategoryId;
+    @Column(nullable = true)
+    private String applicableForCategoryName;
 
     private boolean enabled;
 

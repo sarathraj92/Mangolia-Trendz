@@ -47,7 +47,8 @@
                                 <h5 th:text="'Size : ' + ${cartItem.size}"></h5>
                             </td>
                             <td class="price" data-title="Price">
-                                <p th:text="${cartItem.product.costPrice}"></p>
+                                <p th:unless="${cartItem.product.salePrice > 0}" th:text="${cartItem.product.costPrice}"></p>
+                                <p th:if="${cartItem.product.salePrice > 0}" th:text="${cartItem.product.salePrice}"></p>
                             </td>
                             <form th:action="@{/update-cart}" method="post">
                                 <input type = "hidden" name = "id" th:value = "${cartItem.product.id}" >

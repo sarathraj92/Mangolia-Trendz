@@ -47,8 +47,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         CartItem cartItem = find(cartItemList, productDto.getId(),size.getName());
         Product product = transfer(productDto);
 
+        double unitPrice = 0;
 
-        double unitPrice = productDto.getCostPrice();
+        if(productDto.getSalePrice() == 0) {
+            unitPrice = productDto.getCostPrice();
+        }else{
+            unitPrice = productDto.getSalePrice();
+        }
 
 
         int itemQuantity = 0;

@@ -29,56 +29,57 @@
     <!--      <strong th:text="${'Coupon ' + couponCode + ' already exist!'}">Danger!</strong>-->
     <!--    </div>-->
 
-    <h2 class="mt-2">Create Offer</h2>
-    <form th:action="@{/offers/save}" th:object="${offer}"  method="post">
+    <h2 class="mt-2">Update Offer</h2>
+    <form th:action="@{/offers/update-offer/{id}(id=${offer.id})}" th:object="${offer}"  method="post">
 
 
       <div class="col-md-4">
         <label for="OfferName" class="form-label">Offer Name</label>
-        <input  name="name" class="form-control" id="OfferName" required>
+        <input  name="name" class="form-control" id="OfferName" th:field="*{name}" required>
       </div>
 
       <div class="col-md-4">
         <label for="OfferDescription" class="form-label">Description</label>
-        <input name="description"   required class="form-control" id="OfferDescription">
+        <input name="description"   required class="form-control" id="OfferDescription" th:field="*{description}">
       </div>
 
       <div class="col-md-4">
         <label for="OfferAmount" class="form-label">Percentage Off</label>
-        <input type="number" name="offPercentage" class="form-control" id="OfferAmount" required>
+        <input type="number" name="offPercentage" class="form-control" id="OfferAmount" th:field="*{offPercentage}" required>
       </div>
 
 
 
-            <div class="col-md-4">
-              <label for="OfferType" class="form-label">Type</label>
-              <select onchange="typeSelection()" class= "form-control" id="OfferType" name="offerType">
-                <option th:value="null" >Select Option</option>
-                <option  th:value="Product">Product</option>
-                <option  th:value="Category">Category</option>
-              </select>
+      <div class="col-md-4">
+        <label for="OfferType" class="form-label">Type</label>
+        <select onchange="typeSelection()" class= "form-control" id="OfferType" name="offerType" th:field="*{offerType}">
+          <option th:value="null" >Select Option</option>
+          <option  th:value="Product">Product</option>
+          <option  th:value="Category">Category</option>
+        </select>
 
-            </div>
+      </div>
 
-            <div class="col-md-4" id="proList" hidden>
-              <label for="OfferProducts" class="form-label">Product</label>
-              <select id="OfferProducts" name="offerProductId" class="form-control">
-                <option selected disabled value="">Select a product</option>
-                <th:block th:each="product : ${products}">
-                  <option th:value="${product.id}" th:text="${product.name}"></option>
-                </th:block>
-              </select>
-            </div>
 
-            <div  class="col-md-4" id="catList" hidden>
-              <label for="OfferCategory" class="form-label">Category</label>
-              <select id="OfferCategory" name="offerCategoryId" class="form-control">
-                <option selected value="">Select a category</option>
-                <th:block th:each="category : ${categories}">
-                  <option th:value="${category.id}" th:text="${category.name}"></option>
-                </th:block>
-              </select>
-            </div>
+      <div class="col-md-4" id="proList" hidden>
+        <label for="OfferProducts" class="form-label">Product</label>
+        <select id="OfferProducts" name="applicableForId" class="form-control" th:field="*{offerProductId}"  >
+          <option selected disabled value="">Select a product</option>
+          <th:block th:each="product : ${products}">
+            <option  th:value="${product.id}" th:text="${product.name}"></option>
+          </th:block>
+        </select>
+      </div>
+
+      <div  class="col-md-4" id="catList" hidden>
+        <label for="OfferCategory" class="form-label">Category</label>
+        <select id="OfferCategory" name="applicableForId" class="form-control" th:field="*{offerCategoryId}">
+          <option selected disabled value="">Select a category</option>
+          <th:block th:each="category : ${categories}">
+            <option  th:value="${category.id}" th:text="${category.name}"></option>
+          </th:block>
+        </select>
+      </div>
 
 
       <div class="col-12 mt-25">
@@ -118,7 +119,7 @@
   }
 
 
-
+  window.onload = typeSelection;
 
 
 </script>
