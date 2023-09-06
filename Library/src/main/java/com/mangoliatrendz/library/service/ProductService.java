@@ -4,6 +4,7 @@ import com.mangoliatrendz.library.dto.ProductDto;
 import com.mangoliatrendz.library.model.Color;
 import com.mangoliatrendz.library.model.Product;
 import com.mangoliatrendz.library.model.Size;
+import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
@@ -25,8 +26,10 @@ public interface ProductService {
 
     void enable(long id);
 
-    List<ProductDto> findAllByActivated(long id);
-    List<ProductDto> findAllByActivated();
+    Page<ProductDto> findAllByActivated(long id, int pageNo);
+    Page<ProductDto> findAllByActivated(int pageNo,String sort);
+
+    List<ProductDto> findAllProducts();
 
     List<ProductDto> findAllByOrderDesc();
 
@@ -42,6 +45,8 @@ public interface ProductService {
     Product findBYId(long id);
 
     List<Product> findProductsByCategory(long id);
+
+    Page<ProductDto> searchProducts(int pageNo,String keyword);
 
 
 

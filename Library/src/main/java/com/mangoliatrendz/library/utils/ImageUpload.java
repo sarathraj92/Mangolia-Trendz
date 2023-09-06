@@ -13,9 +13,9 @@ import java.nio.file.*;
 
 @Service
 public class ImageUpload {
-    private final String UPLOAD_FOLDER = "C:\\Users\\sarat\\Desktop\\TestingProject\\MangoliaTrendz\\Admin\\src\\main\\resources\\static\\imgs\\images";
+    private final String UPLOAD_FOLDER = "C:\\Users\\sarat\\Desktop\\Main Project\\MangoliaTrendz\\Admin\\src\\main\\resources\\static\\imgs\\images";
 
-    private final String UPLOAD_FOLDER_CUSTOMER = "C:\\Users\\sarat\\Desktop\\TestingProject\\MangoliaTrendz\\Customer\\src\\main\\resources\\static\\imgs\\images";
+    private final String UPLOAD_FOLDER_CUSTOMER = "C:\\Users\\sarat\\Desktop\\Main Project\\MangoliaTrendz\\Customer\\src\\main\\resources\\static\\imgs\\images";
 
 
 

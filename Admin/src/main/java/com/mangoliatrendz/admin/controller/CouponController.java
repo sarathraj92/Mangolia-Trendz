@@ -54,7 +54,7 @@ public class CouponController {
             return "redirect:/login";
         }
 
-        List<ProductDto> productList = productService.findAllByActivated();
+        List<ProductDto> productList = productService.findAllProducts();
         List<Category> categoryList = categoryService.findAllByActivatedTrue();
 
         model.addAttribute("products",productList);

@@ -5,6 +5,7 @@ import com.mangoliatrendz.library.dto.CustomerDto;
 import com.mangoliatrendz.library.model.Customer;
 import com.mangoliatrendz.library.service.CustomerService;
 import com.mangoliatrendz.library.service.SmsService;
+import com.twilio.Twilio;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -62,6 +63,9 @@ public class LoginController {
     public String registerCustomer(@Valid @ModelAttribute("customerDto") CustomerDto customerDto,
                                    BindingResult result,
                                    Model model, HttpSession httpSession) {
+
+
+
         try {
             if (result.hasErrors()) {
                 model.addAttribute("customerDto", customerDto);

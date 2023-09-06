@@ -1,8 +1,10 @@
 package com.mangoliatrendz.customer.controller;
 
+import com.mangoliatrendz.library.dto.BannerDto;
 import com.mangoliatrendz.library.dto.ProductDto;
 import com.mangoliatrendz.library.model.Category;
 import com.mangoliatrendz.library.model.Customer;
+import com.mangoliatrendz.library.service.BannerService;
 import com.mangoliatrendz.library.service.CategoryService;
 import com.mangoliatrendz.library.service.CustomerService;
 import com.mangoliatrendz.library.service.ProductService;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;
@@ -25,8 +28,11 @@ public class ProductController {
 
     private CustomerService customerService;
 
+    private BannerService bannerService;
+
     public ProductController(CategoryService categoryService, ProductService productService,
-                             CustomerService customerService) {
+                             CustomerService customerService,BannerService bannerService) {
+        this.bannerService=bannerService;
         this.customerService=customerService;
         this.categoryService = categoryService;
         this.productService = productService;
@@ -39,30 +45,56 @@ public class ProductController {
             session.setAttribute("userLoggedIn",true);
             session.setAttribute("username", customer.getFirstName() + " " + customer.getLastName());
         }
+        List<BannerDto> bannerDtoList=bannerService.getAllBanners();
         List<Category> categories = categoryService.findAllByActivatedTrue();
+        List<ProductDto> products=productService.findAllProducts();
         model.addAttribute("categories",categories);
+        model.addAttribute("banners",bannerDtoList);
+        model.addAttribute("products",products);
 
 
         return "index";
     }
 
-    @GetMapping("/products-list/{id}")
-    public String getShopPage(@PathVariable("id") long id,Model model){
+    @GetMapping("/products-list")
+    public String getShopPage(@RequestParam(name = "id",required = false,defaultValue = "0") long id, Model model,
+                              @RequestParam(name = "pageNo",required = false,defaultValue = "0")int pageNo,
+                              @RequestParam(name = "sort",required = false,defaultValue = "")String sort){
         List<Category> categories = categoryService.findAllByActivatedTrue();
-        List<ProductDto> products =productService.findAllByActivated(id);
-        model.addAttribute("categories",categories);
+
+        Page<ProductDto> products;
+        if(id==0) {
+            products = productService.findAllByActivated(pageNo,sort);
+            model.addAttribute("sort",sort);
+        }else{
+            products = productService.findAllByActivated(id,pageNo);
+        }
+        long totalProducts = products.getTotalElements();
+        model.addAttribute("totalProducts", totalProducts);
         model.addAttribute("products",products);
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", products.getTotalPages());
+        model.addAttribute("size",products.getSize());
+        model.addAttribute("categories",categories);
+
 
         return "shop";
     }
-    @GetMapping("/products-list")
-    public String getShopPage(Model model){
-        List<Category> categories = categoryService.findAllByActivatedTrue();
-        List<ProductDto> products =productService.findAllByActivated();
-        model.addAttribute("categories",categories);
-        model.addAttribute("products",products);
 
+    @GetMapping("/search-products/{pageNo}")
+    public String searchProduct(@PathVariable("pageNo") int pageNo,
+                                @RequestParam(name = "keyword") String keyword,
+                                Model model
+    ) {
+
+        Page<ProductDto> products = productService.searchProducts(pageNo, keyword);
+        long totalProducts = products.getTotalElements();
+        model.addAttribute("totalProducts", totalProducts);
+        model.addAttribute("products", products);
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", products.getTotalPages());
         return "shop";
+
     }
 
 

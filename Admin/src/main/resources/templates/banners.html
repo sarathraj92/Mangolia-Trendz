@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -9,7 +9,7 @@
     <meta property="og:type" content="">
     <meta property="og:url" content="">
     <meta property="og:image" content="">
-    <title>Admin Dashboard</title>
+    <title>Banners</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/imgs/theme/favicon.svg}">
@@ -26,45 +26,47 @@
 
     <div class="container">
 
-        <a th:href="@{/offers/add-offer}" class = "btn btn-xs btn-primary">Add Offer</a>
+        <a th:href="@{/banners/add-banner}" class = "btn btn-xs btn-primary">Add Banner</a>
 
-        <p th:if="${size == 0} ">No Offers</p>
+        <p th:if="${size == 0} ">No Banners</p>
         <div th:if = "${success}" class = "text-center alert alert-success">
             <p th:text = "${success}"></p>
         </div>
         <div th:if = "${error}" class="text-center alert alert-danger">
             <p th:text = "${error}"></p>
         </div>
-        <table id="offersTable" class="table table-bordered" th:if = "${size > 0}">
+        <table id="bannersTable" class="table table-bordered" th:if = "${size > 0}">
             <thead>
             <tr>
-                <th scope="col">Offer Name</th>
-                <th scope="col">Description</th>
-                <th scope="col">Discount %</th>
-                <th scope="col">Offer For</th>
-                <th scope="col">Offer Applied On</th>
+                <th scope="col">Banners Name</th>
+                <th scope="col">Description 1</th>
+                <th scope="col">Description 2</th>
+                <th scope="col">Description 3</th>
+                <th scope="col">Banner Image</th>
+                <th scope="col">Banner Product</th>
                 <th scope="col">Update</th>
                 <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each = "offer : ${offers}">
-                <td th:text = "${offer.name}"></td>
-                <td th:text = "${offer.description}"></td>
-                <td th:text = "${offer.offPercentage}"></td>
-                <td th:text = "${offer.offerType}"></td>
-                <td >
-                    <span th:if="${offer.offerProductId != null}" th:text = "${offer.applicableForProductName}"></span>
-                    <span th:if="${offer.offerCategoryId != null}" th:text = "${offer.applicableForCategoryName}"></span>
-                </td>
-                <td><a th:href="@{/offers/update-offer/{id}(id= ${offer.id})}" class="btn btn-xs btn-primary">Update</a></td>
+            <tr th:each = "banner : ${banners}">
+                <td th:text = "${banner.name}"></td>
+                <td th:text = "${banner.description_1}"></td>
+                <td th:text = "${banner.description_2}"></td>
+                <td th:text = "${banner.description_3}"></td>
                 <td>
-                    <a th:if="${offer.enabled} == true" th:href="@{/disable-offer/{id}(id = ${offer.id})}"
-                       class="btn btn-xs btn-danger" onclick="if (!(confirm('Are you sure you want to Disable this coupon?'))) return false">Disable</a>
-                    <a th:if="${offer.enabled} == false" onclick="if (!(confirm('Are you sure you want to Enable this coupon?'))) return false" th:href="@{/enable-offer/{id}(id = ${offer.id})}"
+                    <img class = "my-product-image" style="height: 70px; width: 70px;" alt="ProductImage"
+                         th:src="@{'/imgs/images/' + ${banner.bannerFile}}" >
+                </td>
+                <td th:text = "${banner.product.name}"></td>
+                <td><a th:href="@{/banners/update-banner/{id}(id= ${banner.id})}" class="btn btn-xs btn-primary">Update</a></td>
+                <td>
+                    <a th:if="${banner.enabled} == true" th:href="@{/disable-banner/{id}(id = ${banner.id})}"
+                       class="btn btn-xs btn-danger" onclick="if (!(confirm('Are you sure you want to Disable this banner?'))) return false">Disable</a>
+                    <a th:if="${banner.enabled} == false" onclick="if (!(confirm('Are you sure you want to Enable this banner?'))) return false" th:href="@{/enable-banner/{id}(id = ${banner.id})}"
                        class=" btn btn-xs btn-primary">Enable</a>
-                    <a  th:href="@{/delete-offer/{id}(id = ${offer.id})}"
-                        class=" btn btn-xs btn-danger-" onclick="if (!(confirm('Are you sure you want to Delete this coupon?'))) return false">Delete</a>
+                    <a  th:href="@{/delete-banner/{id}(id = ${banner.id})}"
+                        class=" btn btn-xs btn-danger-" onclick="if (!(confirm('Are you sure you want to Delete this banner?'))) return false">Delete</a>
                 </td>
             </tr>
             </tbody>
@@ -78,21 +80,18 @@
     </div>
 
 
-
-
 </main>
 
 
-<div th:replace = "~{fragments::script}"></div>
 
+<div th:replace = "~{fragments::script}"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/dataTables.bootstrap4.min.js" integrity="sha512-OQlawZneA7zzfI6B1n1tjUuo3C5mtYuAWpQdg+iI9mkDoo7iFzTqnQHf+K5ThOWNJ9AbXL4+ZDwH7ykySPQc+A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     $(document).ready(function() {
-        $('#offersTable').DataTable();
+        $('#bannersTable').DataTable();
     });
 </script>
-
 
 </body>
 </html>

@@ -70,7 +70,7 @@ public class OfferServiceImpl implements OfferService {
             offer.setApplicableForCategoryName(category.getName());
             List<Product> productList = productService.findProductsByCategory(category.getId());
             for(Product product : productList){
-                Double oldDiscount= (Double)product.getCostPrice() * ((double)offerDto.getOffPercentage()/100.0);
+                Double oldDiscount= (double)product.getCostPrice() * ((double)offerDto.getOffPercentage()/100.0);
                 String formattedDiscount = String.format("%.2f",oldDiscount);
                 Double discount= Double.parseDouble(formattedDiscount);
                 String formattedSalePrice = String.format("%.2f", product.getCostPrice() - discount);

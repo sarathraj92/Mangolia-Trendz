@@ -57,4 +57,13 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
 
 
 
+    @Query(value = "SELECT * FROM products WHERE is_activated = true ORDER BY CASE WHEN :sort = 'lowToHigh' THEN cost_price END ASC, CASE WHEN :sort = 'highToLow' THEN cost_price END DESC", nativeQuery = true)
+    List<Product> findAllByActivatedTrueAndSortBy(@Param("sort") String sort);
+
+
+
+    List<Product> findAllByNameContainingIgnoreCase(String keyword);
+
+
+
 }

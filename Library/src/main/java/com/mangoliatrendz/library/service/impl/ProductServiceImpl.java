@@ -7,6 +7,10 @@ import com.mangoliatrendz.library.service.ProductService;
 import com.mangoliatrendz.library.utils.ImageUpload;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -194,16 +198,48 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> findAllByActivated(long id) {
+    public Page<ProductDto> findAllByActivated(long id,int pageNo) {
         List<Product> products=productRepository.findAllByActivatedTrue(id);
-        List<ProductDto>productDtos = transferData(products);
-        return productDtos;
+        List<ProductDto>productDtoList = transferData(products);
+        Pageable pageable = PageRequest.of(pageNo, 3);
+        Page<ProductDto> dtoPage = toPage(productDtoList, pageable);
+        return dtoPage;
     }
     @Override
-    public List<ProductDto> findAllByActivated() {
+    public Page<ProductDto> findAllByActivated(int pageNo,String sort) {
+        List<Product> products;
+
+        if ("lowToHigh".equals(sort)) {
+            products = productRepository.findAllByActivatedTrueAndSortBy("lowToHigh");
+        } else if ("highToLow".equals(sort)) {
+            products = productRepository.findAllByActivatedTrueAndSortBy("highToLow");
+        } else {
+            products = productRepository.findAllByActivatedTrue();
+        }
+
+        List<ProductDto> productDtoList = transferData(products);
+        Pageable pageable = PageRequest.of(pageNo, 3);
+        return toPage(productDtoList, pageable);
+
+    }
+
+    @Override
+    public List<ProductDto> findAllProducts() {
         List<Product> products=productRepository.findAllByActivatedTrue();
-        List<ProductDto>productDtos = transferData(products);
-        return productDtos;
+        List<ProductDto>productDtoList = transferData(products);
+        return productDtoList;
+    }
+
+    private Page toPage(List list, Pageable pageable) {
+        if (pageable.getOffset() >= list.size()) {
+            return Page.empty();
+        }
+        int startIndex = (int) pageable.getOffset();
+        int endIndex = ((pageable.getOffset() + pageable.getPageSize()) > list.size())
+                ? list.size()
+                : (int) (pageable.getOffset() + pageable.getPageSize());
+        List subList = list.subList(startIndex, endIndex);
+        return new PageImpl(subList, pageable, list.size());
     }
 
     @Override
@@ -264,6 +300,15 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findProductsByCategory(long id) {
         return productRepository.findAllByCategoryId(id);
+    }
+
+    @Override
+    public Page<ProductDto> searchProducts(int pageNo, String keyword) {
+        List<Product> products = productRepository.findAllByNameContainingIgnoreCase(keyword);
+        List<ProductDto> productDtoList = transferData(products);
+        Pageable pageable = PageRequest.of(pageNo, 3);
+        Page<ProductDto> dtoPage = toPage(productDtoList, pageable);
+        return dtoPage;
     }
 
 
