@@ -100,6 +100,30 @@ public class BannerServiceImpl implements BannerService {
         return banner;
     }
 
+    @Override
+    public void disable(long id) {
+        Banner banner=bannerRepository.findById(id);
+        banner.setEnabled(false);
+        bannerRepository.save(banner);
+    }
+
+    @Override
+    public void enable(long id) {
+        Banner banner=bannerRepository.findById(id);
+        banner.setEnabled(true);
+        bannerRepository.save(banner);
+
+    }
+
+    @Override
+    public void deleteBanner(long id) {
+//        Banner banner=bannerRepository.findById(id);
+
+
+        bannerRepository.deleteById(id);
+
+    }
+
     public List<BannerDto> transferData(List<Banner> bannerList){
         List<BannerDto> BannerDtoList=new ArrayList<>();
         for(Banner banner : bannerList){

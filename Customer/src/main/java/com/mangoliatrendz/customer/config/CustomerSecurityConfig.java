@@ -45,7 +45,7 @@ public class CustomerSecurityConfig {
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/do-login")
-                                .defaultSuccessUrl("/dashboard")
+                                .defaultSuccessUrl("/")
                                 .permitAll()
                 )
                 .logout(

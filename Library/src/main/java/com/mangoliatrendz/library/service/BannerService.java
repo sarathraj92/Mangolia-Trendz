@@ -17,4 +17,10 @@ public interface BannerService {
     BannerDto findById(long id);
 
     Banner update(BannerDto bannerDto,MultipartFile bannerImage);
+
+    void disable(long id);
+
+    void enable(long id);
+
+    void deleteBanner(long id);
 }

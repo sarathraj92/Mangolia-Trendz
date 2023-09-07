@@ -110,5 +110,34 @@ public class BannerController {
     }
 
 
+    @GetMapping("/disable-banner/{id}")
+    public String disable(@PathVariable("id")long id,RedirectAttributes redirectAttributes){
+
+        bannerService.disable(id);
+        redirectAttributes.addFlashAttribute("success","Banner Disabled");
+        return "redirect:/banners";
+    }
+
+    @GetMapping("/enable-banner/{id}")
+    public String enable(@PathVariable("id")long id, RedirectAttributes redirectAttributes){
+
+
+        bannerService.enable(id);
+
+        redirectAttributes.addFlashAttribute("success","Banner Enabled");
+        return "redirect:/banners";
+    }
+
+    @GetMapping("/delete-banner/{id}")
+    public String delete(@PathVariable("id")long id,RedirectAttributes redirectAttributes){
+
+        bannerService.deleteBanner(id);
+
+        redirectAttributes.addFlashAttribute("success","Banner deleted");
+
+        return "redirect:/banners";
+    }
+
+
 
 }

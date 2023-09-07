@@ -57,8 +57,8 @@ public class ShoppingCartController {
 
     @PostMapping("/add-to-cart")
     public String addItemToCart(@RequestParam("productId") Long id,
-                                @RequestParam("quantity") int quantity,
-                                @RequestParam("selectedSizeId") long sizeId,
+                                @RequestParam(name = "quantity",defaultValue = "1") int quantity,
+                                @RequestParam(value = "selectedSizeId",defaultValue = "2") long sizeId,
                                 HttpServletRequest request,
                                 Model model,
                                 Principal principal,

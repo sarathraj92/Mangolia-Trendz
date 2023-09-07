@@ -49,7 +49,7 @@ public class Product {
     @OneToMany(mappedBy = "product",cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.DETACH} )
     private List<OrderDetail> orderDetails;
 
-    @OneToOne(mappedBy = "product",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "product")
     private Banner banner;
 
 
