@@ -44,7 +44,8 @@ public class CouponServiceImpl implements CouponService {
     @Override
     public double applyCoupon(String couponCode, double totalPrice) {
         Coupon coupon= couponRepository.findCouponByCode(couponCode);
-        double discountPrice = totalPrice * (coupon.getOffPercentage() / 100);
+        double discountPrice = totalPrice * (coupon.getOffPercentage() / 100.0);
+
 
 
 

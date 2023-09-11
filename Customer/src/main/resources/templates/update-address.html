@@ -19,6 +19,9 @@
 <body>
 <header th:replace="~{fragments::hometop}" ></header>
 
+<div th:replace="~{fragments::mobiletop}"></div>
+
+
 <div class="card-body">
     <div th:if = "${success}">
         <p class = "alert alert-success" th:text = "${success}"></p>

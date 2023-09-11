@@ -1,5 +1,6 @@
 package com.mangoliatrendz.library.service;
 
+import com.mangoliatrendz.library.model.Customer;
 import com.mangoliatrendz.library.model.Order;
 import com.mangoliatrendz.library.model.ShoppingCart;
 
@@ -30,6 +31,10 @@ public interface OrderService {
     List<Double> getTotalAmountForEachMonth();
 
     void updatePayment(Order order,boolean status);
+
+    void updateOrderStatus(String status,long order_id);
+
+    void returnOrder(long id, Customer customer);
 
 
 

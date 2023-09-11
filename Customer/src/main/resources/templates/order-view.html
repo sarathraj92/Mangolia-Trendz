@@ -19,6 +19,9 @@
 <body>
 <header th:replace="~{fragments::hometop}" ></header>
 
+<div th:replace="~{fragments::mobiletop}"></div>
+
+
 
 <div class="container">
 <section class="content-main">
@@ -163,7 +166,9 @@
                     <dl class="dlist">
                       <dt class="text-muted">Status:</dt>
                       <dd>
-                        <span class="badge rounded-pill alert-success text-success" >Payment [(${order.paymentStatus})]</span>
+                        <span th:unless="${#strings.equals(order.orderStatus, 'Cancelled')}" class="badge rounded-pill alert-success text-success" >Payment [(${order.paymentStatus})]</span>
+                        <span th:if="${#strings.equals(order.orderStatus, 'Cancelled')}" class="badge rounded-pill alert-success text-success" >[(${order.orderStatus})]</span>
+
                       </dd>
                     </dl>
                   </article>
@@ -172,7 +177,6 @@
               </tbody>
             </table>
           </div> <!-- table-responsive// -->
-          <a class="btn btn-primary" href="page-orders-tracking.html">View Order Tracking</a>
         </div> <!-- col// -->
         <div class="col-lg-1"></div>
       </div>

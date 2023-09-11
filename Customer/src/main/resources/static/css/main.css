@@ -965,6 +965,25 @@ button.submit:hover, button[type='submit']:hover {
   border-color: #d85040;
 }
 
+.wallet-form {
+  text-align: center;
+  margin: 20px;
+}
+.wallet-form label {
+  font-weight: bold;
+}
+.wallet-form input[type="number"] {
+  padding: 5px;
+  width: 100px;
+}
+.wallet-form button {
+  padding: 5px 10px;
+  background-color: lightgreen;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
 .btn.btn-brush, .button.btn-brush {
   background-color: transparent;
   color: #088178;
@@ -3482,7 +3501,7 @@ table .product-thumbnail img {
 }
 
 .product-cart-wrap .product-action-1 button.small, .product-cart-wrap .product-action-1 a.action-btn.small {
-  width: 32px;
+  width: 40px;
   height: 32px;
   line-height: 32px;
 }

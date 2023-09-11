@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -33,10 +34,15 @@ public class OrderController {
     }
 
     @GetMapping("/orders")
-    public String getOrders(Principal principal, Model model){
+    public String getOrders(Principal principal, Model model,
+                            @RequestParam(name = "status",required = false,defaultValue = "")String orderStatus,
+                            @RequestParam(name = "orderId",required = false,defaultValue = "0")long order_id){
+
         if(principal==null){
             return "redirect:/login";
         }else{
+            System.out.println(orderStatus + order_id);
+            orderService.updateOrderStatus(orderStatus,order_id);
             List<Order> orders=orderService.findAllOrders();
             model.addAttribute("orders",orders);
 
@@ -74,6 +80,7 @@ public class OrderController {
 
         return "order-view";
     }
+
 
 
 

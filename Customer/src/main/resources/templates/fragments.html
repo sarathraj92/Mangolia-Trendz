@@ -25,7 +25,7 @@
                     <div class="header-info">
                         <ul>
                             <li><i class="fi-rs-smartphone"></i> <a href="#">(+01) - 2345 - 6789</a></li>
-                            <li><i class="fi-rs-marker"></i><a  href="page-contact.html">Our location</a></li>
+                            <li><i class="fi-rs-marker"></i><a  th:href="@{/contact}">Our location</a></li>
                         </ul>
                     </div>
                 </div>
@@ -33,9 +33,8 @@
                     <div class="text-center">
                         <div id="news-flash" class="d-inline-block">
                             <ul>
-                                <li>Get great devices up to 50% off <a href="shop-grid-right.html">View details</a></li>
                                 <li>Supper Value Deals - Save more with coupons</li>
-                                <li>Trendy 25silver jewelry, save up 35% off today <a href="shop-grid-right.html">Shop now</a></li>
+                                <li>Trendy 25silver jewelry, save up 35% off today <a th:href="@{/product-list}">Shop now</a></li>
                             </ul>
                         </div>
                     </div>
@@ -56,7 +55,7 @@
         <div class="container">
             <div class="header-wrap">
                 <div class="logo logo-width-1">
-                    <a href="index.html"><img th:src="@{/imgs/theme/logo.png}" alt="logo"></a>
+                    <a th:href="@{/}"><img th:src="@{/imgs/theme/logo.png}" alt="logo"></a>
                 </div>
                 <div class="header-right">
                     <div class="search-style-2">
@@ -104,6 +103,8 @@
                                 </li>
                                 <li><a th:href="@{/dashboard}">My Account</a>
                                 </li>
+                                <li><a th:href="@{/wallets}">Wallet</a>
+                                </li>
                                 <li>
                                     <a th:href="@{/contact}">Contact</a>
                                 </li>
@@ -119,52 +120,15 @@
                     <div class="header-action-2">
                         <div class="header-action-icon-2">
                             <a href="shop-wishlist.html">
-                                <img alt="Evara" src="assets/imgs/theme/icons/icon-heart.svg">
+                                <img alt="WishList" th:src="@{/imgs/theme/icons/icon-heart.svg}">
                                 <span class="pro-count white"></span>
                             </a>
                         </div>
                         <div class="header-action-icon-2">
                             <a class="mini-cart-icon" th:href="@{/cart}">
-                                <img alt="Evara" th:src="@{/imgs/theme/icons/icon-cart.svg}">
+                                <img alt="Cart" th:src="@{/imgs/theme/icons/icon-cart.svg}">
                                 <span class="pro-count white"></span>
                             </a>
-                            <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                                <ul>
-                                    <li>
-                                        <div class="shopping-cart-img">
-                                            <a href="shop-product-right.html"><img alt="Evara" src="assets/imgs/shop/thumbnail-3.jpg"></a>
-                                        </div>
-                                        <div class="shopping-cart-title">
-                                            <h4><a href="shop-product-right.html">Plain Striola Shirts</a></h4>
-                                            <h3><span>1 × </span>$800.00</h3>
-                                        </div>
-                                        <div class="shopping-cart-delete">
-                                            <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="shopping-cart-img">
-                                            <a href="shop-product-right.html"><img alt="Evara" src="assets/imgs/shop/thumbnail-4.jpg"></a>
-                                        </div>
-                                        <div class="shopping-cart-title">
-                                            <h4><a href="shop-product-right.html">Macbook Pro 2022</a></h4>
-                                            <h3><span>1 × </span>$3500.00</h3>
-                                        </div>
-                                        <div class="shopping-cart-delete">
-                                            <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <div class="shopping-cart-footer">
-                                    <div class="shopping-cart-total">
-                                        <h4>Total <span>$383.00</span></h4>
-                                    </div>
-                                    <div class="shopping-cart-button">
-                                        <a th:href="@{/cart}">View cart</a>
-                                        <a href="shop-checkout.html">Checkout</a>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="header-action-icon-2 d-block d-lg-none">
                             <div class="burger-icon burger-icon-white">
@@ -180,6 +144,84 @@
     </div>
 </header>
 
+<div th:fragment="mobiletop" class="mobile-header-active mobile-header-wrapper-style">
+    <div class="mobile-header-wrapper-inner">
+        <div class="mobile-header-top">
+            <div class="mobile-header-logo">
+                <a th:href="@{/}"><img th:src="@{/imgs/theme/logo.png}" alt="logo"></a>
+            </div>
+            <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
+                <button class="close-style search-close">
+                    <i class="icon-top"></i>
+                    <i class="icon-bottom"></i>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-header-content-area">
+            <div class="mobile-search search-style-3 mobile-header-border">
+                <form th:action = "@{/search-products/0}" method="get">
+                    <input type="text" placeholder="Search for items..." name="keyword">
+                    <button type="submit" class="btn btn-primary" >Search</button>
+                </form>
+            </div>
+            <div class="mobile-menu-wrap mobile-header-border">
+                <div class="main-categori-wrap mobile-header-border">
+                    <a class="categori-button-active-2" href="#">
+                        <span class="fi-rs-apps"></span> Browse Categories
+                    </a>
+                    <div class="categori-dropdown-wrap categori-dropdown-active-small">
+                        <ul th:each="category : ${categories}">
+                            <a th:href="@{/products-list(id=${category.id})}"><li  th:text="${category.name}"></li></a>
+                        </ul>
+                    </div>
+                </div>
+                <!-- mobile menu start -->
+                <nav>
+                    <ul class="mobile-menu">
+
+                        <li><a class="active" th:href="@{/}">Home </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/about}">About</a>
+                        </li>
+                        <li><a th:href="@{/products-list}">Shop</a>
+                        </li>
+                        <li><a th:href="@{/dashboard}">My Account</a>
+                        </li>
+                        <li><a th:href="@{/wallets}">Wallet</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/contact}">Contact</a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- mobile menu end -->
+            </div>
+            <div class="mobile-header-info-wrap mobile-header-border">
+                <div class="single-mobile-header-info mt-30">
+                    <a  th:href="@{/contact}"> Our location </a>
+                </div>
+                <div class="single-mobile-header-info">
+                    <li th:if = "${session.username == null}"><i class="fi-rs-user"></i><a th:href="@{/login}">Log In</a></li>
+                    <li th:unless = "${session.username == null}"><i class="fi-rs-user"></i><a th:href="@{/logout}">Log out</a></li>
+                    <li th:if = "${session.username == null}"><i class="fi-rs-user"></i><a th:href="@{/register}">Sign Up</a></li>
+                </div>
+                <div class="single-mobile-header-info">
+                    <a href="#">(+01) - 2345 - 6789 </a>
+                </div>
+            </div>
+            <div class="mobile-social-icon">
+                <h5 class="mb-15 text-grey-4">Follow Us</h5>
+                <a href="#"><img th:src="@{/imgs/theme/icons/icon-facebook.svg}" alt=""></a>
+                <a href="#"><img th:src="@{/imgs/theme/icons/icon-twitter.svg}" alt=""></a>
+                <a href="#"><img th:src="@{/imgs/theme/icons/icon-instagram.svg}" alt=""></a>
+                <a href="#"><img th:src="@{/imgs/theme/icons/icon-pinterest.svg}" alt=""></a>
+                <a href="#"><img th:src="@{/imgs/theme/icons/icon-youtube.svg}" alt=""></a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <header th:fragment="topbar" class="header-area header-style-5">
     <div class="header-top header-top-ptb-1 d-none d-lg-block">
         <div class="container">
@@ -188,7 +230,7 @@
                     <div class="header-info">
                         <ul>
                             <li><i class="fi-rs-smartphone"></i> <a href="#">(+01) - 2345 - 6789</a></li>
-                            <li><i class="fi-rs-marker"></i><a  href="#">Our location</a></li>
+                            <li><i class="fi-rs-marker"></i><a  th:href="@{/contact}">Our location</a></li>
                         </ul>
                     </div>
                 </div>
@@ -196,9 +238,8 @@
                     <div class="text-center">
                         <div id="news-flashs" class="d-inline-block">
                             <ul>
-                                <li>Get great devices up to 50% off <a href="#">View details</a></li>
                                 <li>Supper Value Deals - Save more with coupons</li>
-                                <li>Trendy 25silver jewelry, save up 35% off today <a href="#">Shop now</a></li>
+                                <li>Trendy 25silver jewelry, save up 35% off today <a th:href="@{/product-list}">Shop now</a></li>
                             </ul>
                         </div>
                     </div>
@@ -233,6 +274,8 @@
                                 </li>
                                 <li><a th:href="@{/dashboard}">My Account</a>
                                 </li>
+                                <li><a th:href="@{/wallets}">Wallet</a>
+                                </li>
                                 <li>
                                     <a th:href="@{/contact}">Contact</a>
                                 </li>
@@ -243,12 +286,12 @@
                     <div class="header-action-2">
                         <div class="header-action-icon-2">
                             <a href="shop-wishlist.html">
-                                <img class="svgInject" alt="Evara" th:src="@{/imgs/theme/icons/icon-heart.svg}">
+                                <img class="svgInject" alt="WishList" th:src="@{/imgs/theme/icons/icon-heart.svg}">
                             </a>
                         </div>
                         <div class="header-action-icon-2">
                             <a class="mini-cart-icon" th:href="@{/cart}">
-                                <img alt="Evara" th:src="@{/imgs/theme/icons/icon-cart.svg}">
+                                <img alt="Cart" th:src="@{/imgs/theme/icons/icon-cart.svg}">
                             </a>
                             </div>
                         </div>

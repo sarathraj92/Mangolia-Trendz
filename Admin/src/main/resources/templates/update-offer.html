@@ -9,7 +9,7 @@
   <meta property="og:type" content="">
   <meta property="og:url" content="">
   <meta property="og:image" content="">
-  <title>Add Coupons</title>
+  <title>Update Offers</title>
 
   <!-- Favicon -->
   <link rel="shortcut icon" type="image/x-icon" th:href="@{/imgs/theme/favicon.svg}">
@@ -52,7 +52,7 @@
 
       <div class="col-md-4">
         <label for="OfferType" class="form-label">Type</label>
-        <select onchange="typeSelection()" class= "form-control" id="OfferType" name="offerType" th:field="*{offerType}">
+        <select onchange="typeSelection()" class= "form-control" id="OfferType" name="offerType" th:field="*{offerType}" required>
           <option th:value="null" >Select Option</option>
           <option  th:value="Product">Product</option>
           <option  th:value="Category">Category</option>

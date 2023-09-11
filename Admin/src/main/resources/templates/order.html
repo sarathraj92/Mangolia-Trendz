@@ -54,6 +54,11 @@
                     <span th:text="${order.customer.firstName} + ' ' +  ${order.customer.lastName}"></span>
                 </td>
                 <td class="price-pr">
+                    <select th:unless="${#strings.equals(order.orderStatus, 'Cancelled')}"  id="order-status" th:data-order-id="${order.id}"  onchange="submitSelection(this.getAttribute('data-order-id'))"  name="orderStatus" class="form-control">
+                        <option th:value = "null">-SELECT-</option>
+                        <option value = "Shipped">Shipped</option>
+                        <option value = "Delivered">Delivered</option>
+                    </select>
                     <p th:text="${order.orderStatus}"></p>
                 </td>
                 <td class="total-pr">
@@ -103,6 +108,12 @@
             }
          );
     });
+
+
+    function submitSelection(orderId){
+        const select = document.getElementById("order-status").value;
+        window.location.href = "/admin/orders?status="+ select + "&orderId=" + orderId;;
+    }
 </script>
 </body>
 </html>

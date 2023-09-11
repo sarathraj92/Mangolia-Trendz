@@ -11,12 +11,15 @@ public class AuthController {
 
 
 
+
+
     @GetMapping("/login")
     public String getLoginForm(HttpSession session) {
         Object attribute = session.getAttribute("userLoggedIn");
         if (attribute != null) {
             return "redirect:/";
         }
+
 
         return "login";
     }

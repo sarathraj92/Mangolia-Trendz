@@ -18,6 +18,9 @@
 <body>
 <header th:replace="~{fragments::hometop}" ></header>
 
+<div th:replace="~{fragments::mobiletop}"></div>
+
+
 
   <div class="page-header breadcrumb-wrap">
     <div class="container">
@@ -121,7 +124,12 @@
                 </div>
                 <div class="custome-radio">
                   <input class="form-check-input payment_option" required="" type="radio" value="RazorPay" name="payment_option" id="exampleRadios5">
-                  <label class="form-check-label " for="exampleRadios5" data-bs-toggle="collapse" data-target="#paypal" aria-controls="paypal">Razor Pay</label>
+                  <label class="form-check-label " for="exampleRadios5" data-bs-toggle="collapse" data-target="#RazorPay" aria-controls="razorpay">Razor Pay</label>
+                </div>
+                <div class="custome-radio">
+                  <input class="form-check-input payment_option" required="" type="radio" value="Wallet" name="payment_option" id="exampleRadios6"  th:disabled="${wallet.balance < shoppingCart.totalPrice ? 'disabled' : null}">
+                  <label class="form-check-label " for="exampleRadios6" data-bs-toggle="collapse" data-target="#Wallet" aria-controls="wallet">Wallet <span>(Balance:[(${wallet.balance})])</span></label>
+                  <a th:href="@{/wallets}">Add Balance</a>
                 </div>
               </div>
               <input type="hidden" id="addressId" name="shippingAddress" value=""/>
@@ -230,20 +238,16 @@
     if(checkedAddress    === undefined ){
       alert("Please choose a shipping address!!")
     } else {
-      // console.log("CHECKED VALUE : " + checkedAddress);
-      // console.log("Payment Method : " + paymentMethod);
+
       const addressId =document.getElementById("addressId");
       const payment_Method= document.getElementById("paymentMethod");
       addressId.value = checkedAddress;
       payment_Method.value = paymentMethod;
-      // console.log(document.getElementById("addressId").value);
-      // console.log(document.getElementById("paymentMethod").value);
 
       paymentStart(addressId.value,payment_Method.value);
-        // document.getElementById(formID).submit();
 
     }
-  };
+  }
 
   const paymentStart = (addressId,payment_Method) => {
     console.log(addressId);
@@ -272,11 +276,6 @@
                   console.log(response.razorpay_payment_id);
                   console.log(response.razorpay_order_id);
                   console.log(response.razorpay_signature);
-                  // let payment ={
-                  //   payment_id:response.razorpay_payment_id,
-                  //   order_id:response.razorpay_order_id,
-                  //   signature:response.razorpay_signature
-                  // };
                   verifyPayment(response);
 
                 },
@@ -306,6 +305,9 @@
 
               rzp.open();
             }else if(response.status=="Cash"){
+              location.href='/shop/order-confirmation';
+
+            }else if(response.status=="Wallet"){
               location.href='/shop/order-confirmation';
 
             }

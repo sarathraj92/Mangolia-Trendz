@@ -38,6 +38,7 @@
                             <th>Total Price</th>
                             <th class="total-pr">Payment Method</th>
                             <th>Payment Status</th>
+                            <th>Order Tracking</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -61,11 +62,16 @@
                                 <span>[(${order.paymentMethod})]</span>
                             </td>
                             <td>
-                                <span>[(${order.paymentStatus})]</span>
+                                <span th:unless="${#strings.equals(order.orderStatus, 'Cancelled')}">[(${order.paymentStatus})]</span>
+                                <span th:if="${#strings.equals(order.orderStatus, 'Cancelled')}">[(${order.orderStatus})]</span>
+                            </td>
+                            <td>
+                                <a th:href="@{/order-tracking/{id}(id = ${order.id})}">Track My Order</a>
                             </td>
                             <td>
                                 <a th:href="@{/order-view/{id}(id = ${order.id})}" class="button-cancel" >View</a>
-                                <a th:unless="${order.orderStatus=='Cancelled'}" th:href="@{/cancel-order/{id}(id = ${order.id})}" class="button-cancel"
+                                <a th:if="${order.orderStatus=='Delivered'}" th:href="@{/return-order/{id}(id = ${order.id})}" class="button-cancel" >Return</a>
+                                <a  th:unless="${order.orderStatus=='Cancelled' or order.orderStatus == 'Delivered'}" th:href="@{/cancel-order/{id}(id = ${order.id})}" class="button-cancel"
                                    onclick="if (!(confirm('Are you sure you want to Cancel this Order?'))) return false">Cancel</a>
                             </td>
                             </a>

@@ -7,6 +7,7 @@ import com.mangoliatrendz.library.repository.ProductRepository;
 import com.mangoliatrendz.library.service.AddressService;
 import com.mangoliatrendz.library.service.OrderService;
 import com.mangoliatrendz.library.service.ShoppingCartService;
+import com.mangoliatrendz.library.service.WalletService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -27,8 +28,11 @@ public class OrderServiceImpl implements OrderService {
 
     private AddressService addressService;
 
+    private WalletService walletService;
+
     public OrderServiceImpl(OrderRepository orderRepository, OrderDetailRepository orderDetailRepository, ShoppingCartService shoppingCartService,
-                            ProductRepository productRepository,AddressService addressService) {
+                            ProductRepository productRepository,AddressService addressService, WalletService walletService) {
+        this.walletService=walletService;
         this.addressService=addressService;
         this.productRepository=productRepository;
         this.orderRepository = orderRepository;
@@ -69,6 +73,9 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderDetails(orderDetailList);
         if(paymentMethod.equals("COD")) {
             order.setPaymentStatus("Pending");
+            shoppingCartService.deleteCartById(cart.getId());
+        }else if(paymentMethod.equals("Wallet")){
+            order.setPaymentStatus("Paid");
             shoppingCartService.deleteCartById(cart.getId());
         }
 
@@ -188,6 +195,33 @@ public class OrderServiceImpl implements OrderService {
             order.setPaymentStatus("Failed");
             orderRepository.save(order);
         }
+
+    }
+
+    @Override
+    public void updateOrderStatus(String status, long order_id) {
+        if(order_id != 0) {
+            Order order = orderRepository.getReferenceById(order_id);
+            if(status.equals("Shipped")){
+                order.setOrderStatus(status);
+                orderRepository.save(order);
+            }else if(status.equals("Delivered")){
+                order.setOrderStatus(status);
+                if(order.getPaymentMethod().equals("COD")){
+                    order.setPaymentStatus("Paid");
+                }
+                orderRepository.save(order);
+            }
+        }
+    }
+
+    @Override
+    public void returnOrder(long id,Customer customer) {
+        Order order=orderRepository.findById(id);
+        order.setOrderStatus("Returned");
+        orderRepository.save(order);
+
+        walletService.returnCredit(order,customer);
 
     }
 }

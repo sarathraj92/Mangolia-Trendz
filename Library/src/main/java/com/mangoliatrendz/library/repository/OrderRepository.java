@@ -29,4 +29,6 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 
     @Query(value = "select COALESCE(SUM(total_price), 0) from orders where order_date between :startDate and :endDate and order_status = :orderStatus",nativeQuery = true)
     Double getTotalConfirmedOrdersAmountForMonth(@Param("startDate") LocalDate startDate,@Param("endDate") LocalDate endDate,@Param("orderStatus") String orderStatus);
+
+    Order findById(long id);
 }
