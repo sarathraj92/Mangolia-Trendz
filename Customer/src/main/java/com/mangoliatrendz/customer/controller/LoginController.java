@@ -25,9 +25,6 @@ public class LoginController {
 
     private BCryptPasswordEncoder passwordEncoder;
 
-
-
-
     private CustomerService customerService;
 
     private SmsService smsService;

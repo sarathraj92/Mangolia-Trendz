@@ -53,6 +53,10 @@ public class Product {
     private Banner banner;
 
 
+    @OneToOne(mappedBy = "product")
+    private Wishlist wishlist;
+
+
     private boolean is_activated;
 
 

@@ -13,9 +13,12 @@ import java.nio.file.*;
 
 @Service
 public class ImageUpload {
-    private final String UPLOAD_FOLDER = "C:\\Users\\sarat\\Desktop\\Main Project\\MangoliaTrendz\\Admin\\src\\main\\resources\\static\\imgs\\images";
 
-    private final String UPLOAD_FOLDER_CUSTOMER = "C:\\Users\\sarat\\Desktop\\Main Project\\MangoliaTrendz\\Customer\\src\\main\\resources\\static\\imgs\\images";
+    String rootPath = System.getProperty("user.home");
+
+    String UPLOAD_FOLDER = rootPath  + File.separator + "MangoliaTrendz" + File.separator + "Admin" + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "imgs" + File.separator + "images";
+
+    String UPLOAD_FOLDER_CUSTOMER = rootPath  + File.separator + "MangoliaTrendz" + File.separator + "Customer" + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "imgs" + File.separator + "images";
 
 
 

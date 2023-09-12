@@ -40,6 +40,9 @@ public class Customer implements Serializable {
     @OneToOne(mappedBy = "customer")
     private Wallet wallet;
 
+    @OneToMany(mappedBy = "customer")
+    private List<Wishlist> wishlists;
+
     private boolean is_activated;
 
     @Override
