@@ -13,8 +13,8 @@
   <!-- Favicon -->
   <link rel="shortcut icon" type="image/x-icon" th:href="@{/imgs/theme/favicon.svg}">
   <!-- Template CSS -->
-  <link rel="stylesheet" th:href="@{/css/main1.css?v=3.4}">
-  <link rel="stylesheet" th:href="@{/css/main.css?v=3.4}">
+  <link rel="stylesheet" href="/css/main1.css?v=3.4">
+  <link rel="stylesheet" href="/css/main.css?v=3.4">
 </head>
 <body>
 <header th:replace="~{fragments::hometop}" ></header>
@@ -194,8 +194,8 @@
 
 <footer th:replace="~{fragments::downbar}"></footer>
 <div th:replace = "~{fragments::script}"></div>
-<script th:src="@{/js/plugins/jquery.elevatezoom.js}"></script>
+<script src="/js/plugins/jquery.elevatezoom.js"></script>
 <!-- Template  JS -->
-<script th:src="@{/js/shop.js?v=3.4}"></script>
+<script src="/js/shop.js?v=3.4"></script>
 </body>
 </html>
