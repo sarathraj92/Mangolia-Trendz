@@ -12,9 +12,9 @@
     <title>Admin Dashboard</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" th:href="@{/imgs/theme/favicon.svg}">
+    <link rel="shortcut icon" type="image/x-icon" href="/imgs/theme/favicon.svg">
     <!-- Template CSS -->
-    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap4.min.css" integrity="sha512-PT0RvABaDhDQugEbpNMwgYBCnGCiTZMh9yOzUsJHDgl/dMhD9yjHAwoumnUk3JydV3QTcIkNDuN40CJxik5+WQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
@@ -199,7 +199,7 @@
 
     function submitRange(){
         const periodSelect = document.getElementById("periodSelect").value;
-        window.location.href = "/admin/?filter="+periodSelect;
+        window.location.href = "/?filter="+periodSelect;
     }
 
     function generateReport(){
@@ -232,7 +232,7 @@
 
     function getCsv(data){
         $.ajax({
-            url: "/admin/generateReport",
+            url: "/generateReport",
             type: "POST",
             data: JSON.stringify(data),
             contentType: "application/json",
@@ -266,7 +266,7 @@
 
     function getPdf(data){
 
-        fetch('/admin/generateReport', {
+        fetch('/generateReport', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

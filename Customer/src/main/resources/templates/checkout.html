@@ -255,7 +255,7 @@
 
     $.ajax(
             {
-          url:'/shop/add-order',
+          url:'/add-order',
           data:JSON.stringify({addressId:addressId,
                 payment_Method:payment_Method}),
           contentType: 'application/json',
@@ -305,10 +305,10 @@
 
               rzp.open();
             }else if(response.status=="Cash"){
-              location.href='/shop/order-confirmation';
+              location.href='/order-confirmation';
 
             }else if(response.status=="Wallet"){
-              location.href='/shop/order-confirmation';
+              location.href='/order-confirmation';
 
             }
 
@@ -333,7 +333,7 @@
       success:(response)=>{
         if(response.status){
           alert("congrats!! Payment successful");
-          location.href='/shop/order-confirmation'
+          location.href='/order-confirmation'
         } else{
           alert("Payment failed!")
         }

@@ -96,7 +96,7 @@
 
         $.ajax(
             {
-                url:'/shop/add-wallet',
+                url:'/add-wallet',
                 data:JSON.stringify({amount:cash}),
                 contentType: 'application/json',
                 type:'POST',
@@ -165,7 +165,7 @@
                 success:(response)=>{
                     if(response.status){
                         alert("congrats!! Money Added to the Wallet");
-                        location.href='/shop/wallets'
+                        location.href='/wallets'
                     } else{
                         alert("Payment failed!")
                     }

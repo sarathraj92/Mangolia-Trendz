@@ -6,7 +6,7 @@ $(document).ready(function () {
 
         // Load address content using AJAX
         $.ajax({
-            url: '/shop/address', // Your controller endpoint to fetch address content
+            url: '/address', // Your controller endpoint to fetch address content
             method: 'GET',
             success: function (data) {
                 // Update the content of the target tab
@@ -26,7 +26,7 @@ $(document).ready(function () {
 
         // Load address content using AJAX
         $.ajax({
-            url: '/shop/orders', // Your controller endpoint to fetch address content
+            url: '/orders', // Your controller endpoint to fetch address content
             method: 'GET',
             success: function (data) {
                 // Update the content of the target tab
@@ -64,7 +64,7 @@ $(document).ready(function () {
 
         // Load address content using AJAX
         $.ajax({
-            url: '/shop/account-details', // Your controller endpoint to fetch account content
+            url: '/account-details', // Your controller endpoint to fetch account content
             method: 'GET',
             success: function (data) {
                 // Update the content of the target tab
