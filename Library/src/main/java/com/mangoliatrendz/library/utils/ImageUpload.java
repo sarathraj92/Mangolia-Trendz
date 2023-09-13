@@ -16,10 +16,9 @@ public class ImageUpload {
 
     String rootPath = System.getProperty("user.home");
 
-    String UPLOAD_FOLDER = rootPath + System.getProperty("file.separator")   + "MangoliaTrendz" +  System.getProperty("file.separator") + "Admin" + System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "main" +  System.getProperty("file.separator") + "resources" +  System.getProperty("file.separator") + "static" +  System.getProperty("file.separator") + "imgs" +  System.getProperty("file.separator") + "images";
+    String UPLOAD_FOLDER = Paths.get(rootPath, "Main Project", "MangoliaTrendz", "Admin", "src", "main", "resources", "static", "imgs", "images").toString();
 
-    String UPLOAD_FOLDER_CUSTOMER = rootPath +   System.getProperty("file.separator") + "MangoliaTrendz" +  System.getProperty("file.separator") + "Customer" +  System.getProperty("file.separator")  + "src" +  System.getProperty("file.separator") + "main" +  System.getProperty("file.separator") + "resources" +  System.getProperty("file.separator") + "static" +  System.getProperty("file.separator") + "imgs" +  System.getProperty("file.separator") + "images";
-
+    String UPLOAD_FOLDER_CUSTOMER = Paths.get(rootPath, "Main Project", "MangoliaTrendz", "Customer", "src", "main", "resources", "static", "imgs", "images").toString();
 
 
     public String storeFile(MultipartFile file) throws IOException {
