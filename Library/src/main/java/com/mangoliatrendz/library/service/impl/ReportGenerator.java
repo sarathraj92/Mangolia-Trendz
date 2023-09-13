@@ -68,6 +68,8 @@ public class ReportGenerator {
                 table.addCell(String.valueOf(productStat[2]));
                 table.addCell(String.valueOf(productStat[3]));
                 table.addCell(String.valueOf(productStat[4]));
+
+                System.out.println(productStat[0] + "" + productStat[1]);
             }
 
             document.add(table);
@@ -85,6 +87,8 @@ public class ReportGenerator {
     public String generateProductStatsCsv(List<Object[]> productStats) {
         // Generate a unique file name for the CSV file
         String fileName = UUID.randomUUID().toString();
+
+
 
         // Define the directory to save the CSV file
         String rootPath = System.getProperty("user.dir");
@@ -109,6 +113,8 @@ public class ReportGenerator {
                         productStat[2].toString(),
                         productStat[3].toString(),
                         productStat[4].toString());
+
+                System.out.println(productStat[0] + "" + productStat[1]);
             }
 
             writer.flush();
