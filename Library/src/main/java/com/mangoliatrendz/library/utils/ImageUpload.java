@@ -16,9 +16,9 @@ public class ImageUpload {
 
     String rootPath = System.getProperty("user.home");
 
-    String UPLOAD_FOLDER = Paths.get(rootPath, "Main Project", "MangoliaTrendz", "Admin", "src", "main", "resources", "static", "imgs", "images").toString();
+    String UPLOAD_FOLDER = Paths.get(rootPath,  "MangoliaTrendz", "Admin", "src", "main", "resources", "static", "imgs", "images").toString();
 
-    String UPLOAD_FOLDER_CUSTOMER = Paths.get(rootPath, "Main Project", "MangoliaTrendz", "Customer", "src", "main", "resources", "static", "imgs", "images").toString();
+    String UPLOAD_FOLDER_CUSTOMER = Paths.get(rootPath,  "MangoliaTrendz", "Customer", "src", "main", "resources", "static", "imgs", "images").toString();
 
 
     public String storeFile(MultipartFile file) throws IOException {

@@ -35,7 +35,7 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
             "JOIN order_Detail od ON p.product_id = od.product_id " +
             "JOIN orders o ON od.order_id = o.order_id " +
             "JOIN categories c ON p.category_id = c.category_id " +
-            "WHERE o.order_Status = 'Confirmed' " +
+            "WHERE o.order_Status = 'Delivered' " +
             "GROUP BY p.product_id, p.name, c.name " +
             "ORDER BY total_revenue DESC",nativeQuery = true)
     List<Object[]> getProductStatsForConfirmedOrders();
@@ -46,7 +46,7 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
             "JOIN order_Detail od ON p.product_id = od.product_id " +
             "JOIN orders o ON od.order_id = o.order_id " +
             "JOIN categories c ON p.category_id = c.category_id " +
-            "WHERE o.order_Status = 'Confirmed' " +
+            "WHERE o.order_Status = 'Delivered' " +
             "AND o.order_date BETWEEN :startDate AND :endDate " +
             "GROUP BY p.product_id, p.name, c.name " +
             "ORDER BY total_revenue DESC",nativeQuery = true)
