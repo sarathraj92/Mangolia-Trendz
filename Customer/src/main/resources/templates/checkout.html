@@ -325,7 +325,7 @@
 
   function verifyPayment(payment){
     $.ajax({
-      url:'/shop/verify-payment',
+      url:'/verify-payment',
       method: 'post',
       data:JSON.stringify(payment),
       contentType: 'application/json',
