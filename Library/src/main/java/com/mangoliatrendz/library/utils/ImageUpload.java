@@ -16,9 +16,9 @@ public class ImageUpload {
 
     String rootPath = System.getProperty("user.home");
 
-    String UPLOAD_FOLDER = rootPath + File.separator + "Desktop" + File.separator + "Main Project" + File.separator + "MangoliaTrendz" + File.separator + "Admin" + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "imgs" + File.separator + "images";
+    String UPLOAD_FOLDER = rootPath +  File.separator + "MangoliaTrendz" + File.separator + "Admin" + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "imgs" + File.separator + "images";
 
-    String UPLOAD_FOLDER_CUSTOMER = rootPath + File.separator + "Desktop" + File.separator + "Main Project" + File.separator + "MangoliaTrendz" + File.separator + "Customer" + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "imgs" + File.separator + "images";
+    String UPLOAD_FOLDER_CUSTOMER = rootPath +  File.separator + "MangoliaTrendz" + File.separator + "Customer" + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "imgs" + File.separator + "images";
 
 
 
