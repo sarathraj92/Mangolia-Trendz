@@ -104,7 +104,7 @@ public class ProductController {
         ProductDto productDto=productService.findById(id);
         model.addAttribute("categories",categories);
         model.addAttribute("productDto",productDto);
-        return "/product-full";
+        return "product-full";
     }
 
 

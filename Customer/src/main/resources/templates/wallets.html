@@ -157,7 +157,7 @@
 
         function verifyPayment(payment){
             $.ajax({
-                url:'/shop/verify-wallet',
+                url:'/verify-wallet',
                 method: 'post',
                 data:JSON.stringify(payment),
                 contentType: 'application/json',

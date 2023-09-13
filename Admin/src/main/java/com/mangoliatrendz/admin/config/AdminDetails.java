@@ -6,9 +6,10 @@ package com.mangoliatrendz.admin.config;
 import org.springframework.security.core.GrantedAuthority;
 
 
+import java.io.Serializable;
 import java.util.Collection;
 
-public class AdminDetails extends org.springframework.security.core.userdetails.User {
+public class AdminDetails extends org.springframework.security.core.userdetails.User implements Serializable {
 
 
     private String firstName;
