@@ -128,7 +128,7 @@
             <div class="form-group">
               <label class="col-md-4 control-label" for="image">PRODUCT IMAGE</label>
               <div class="col-md-4">
-                <img class = "my-product-image" style="height: 40px; width: 40px;" alt="product-image" th:field="*{image}"  th:src="@{'/imgs/images/' + ${productDto.image[0].getName()}}">
+                <img class = "my-product-image" style="height: 40px; width: 40px;" alt="product-image" th:field="*{image}"  th:src="@{|/imgs/images/${productDto.image[0].getName()}|}">
                 <input id="image" name="imageProduct" class="input-file" type="file" multiple>
               </div>
             </div>

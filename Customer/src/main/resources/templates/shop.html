@@ -88,7 +88,7 @@
                 </div>
               </div>
               <div class="product-action-1">
-                <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
+                <a aria-label="Add To Wishlist" class="action-btn hover-up" th:href="@{/add-wishlist}" th:data-product-id="${product.id}"><i class="fi-rs-heart"></i></a>
               </div>
             </div>
             <div class="product-content-wrap">
@@ -119,7 +119,7 @@
                   <input type="hidden" name="productId" th:value="${product.id}" />
                   <div class="product-extra-link2">
                     <button   id="addToCartButton" type="submit" class="button button-add-to-cart">Add to cart</button>
-                    <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
+                    <a aria-label="Add To Wishlist" class="action-btn hover-up" th:href="@{/add-wishlist}" th:data-product-id="${product.id}"><i class="fi-rs-heart"></i></a>
                   </div>
                 </form>
                 <div class="rating-result" title="90%">
@@ -131,6 +131,24 @@
             </div>
           </div>
         </div>
+      </div>
+        <div class="col-lg-3 primary-sidebar sticky-sidebar">
+          <div class="widget-category mb-30">
+            <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
+            <ul th:each="category : ${categories}" class="categories">
+              <a th:href="@{/products-list(id=${category.id})}"><li  th:text="${category.name}"></li></a>
+            </ul>
+          </div>
+        </div>
+
+
+    </div>
+  </div>
+</section>
+
+
+
+      <div class="container">
         <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
           <nav aria-label="...">
             <ul class="pagination" >
@@ -148,9 +166,8 @@
           </nav>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+
+
 </main>
 
 
@@ -166,6 +183,37 @@
 <script tsrc="/js/plugins/jquery.elevatezoom.js"></script>
 <!-- Template  JS -->
 <script tsrc="/js/shop.js?v=3.4"></script>
+
+
+<script>
+  $(document).ready(function () {
+    $(".action-btn").click(function (event) {
+      event.preventDefault();
+
+      const productId = $(this).data("product-id");
+
+      console.log(productId);
+      $.ajax({
+        url: "/add-wishlist",
+        type: "POST",
+        data: { productId: productId },
+        success: function (response) {
+            alert("Added to wishlist successfully");
+        },
+        error: function (xhr, status, error) {
+
+          if (xhr.status === 409) {
+            alert("Product already exists in wishlist");
+          }else if(xhr.status === 401){
+            alert("User not logged in , Please Log in")
+          } else {
+            alert("Error adding to wishlist. Please try again later.");
+          }
+        },
+      });
+    });
+  });
+</script>
 
 
 </body>

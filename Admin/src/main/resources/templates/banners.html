@@ -56,7 +56,7 @@
                 <td th:text = "${banner.description_3}"></td>
                 <td>
                     <img class = "my-product-image" style="height: 90px; width: 90px;" alt="ProductImage"
-                         th:src="@{|/admin/imgs/images/${banner.bannerFile}|}" >
+                         th:src="@{|/imgs/images/${banner.bannerFile}|}" >
                 </td>
                 <td th:text = "${banner.product.name}"></td>
                 <td><a th:href="@{/banners/update-banner/{id}(id= ${banner.id})}" class="btn btn-xs btn-primary">Update</a></td>

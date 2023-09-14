@@ -4,6 +4,7 @@ import com.mangoliatrendz.library.dto.BannerDto;
 import com.mangoliatrendz.library.dto.ProductDto;
 import com.mangoliatrendz.library.model.Category;
 import com.mangoliatrendz.library.model.Customer;
+import com.mangoliatrendz.library.model.Product;
 import com.mangoliatrendz.library.service.BannerService;
 import com.mangoliatrendz.library.service.CategoryService;
 import com.mangoliatrendz.library.service.CustomerService;
@@ -102,8 +103,10 @@ public class ProductController {
     public String getProductFull(@PathVariable("id")long id,Model model){
         List<Category> categories = categoryService.findAllByActivatedTrue();
         ProductDto productDto=productService.findById(id);
+        List<Product> products=productService.findProductsByCategory(productDto.getCategory().getId());
         model.addAttribute("categories",categories);
         model.addAttribute("productDto",productDto);
+        model.addAttribute("products",products);
         return "product-full";
     }
 
