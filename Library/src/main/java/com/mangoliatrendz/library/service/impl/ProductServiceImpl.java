@@ -282,9 +282,13 @@ public class ProductServiceImpl implements ProductService {
             orderDetailRepository.save(orderDetail);
         }
         Banner banner=product.getBanner();
-        bannerRepository.delete(banner);
+        if(banner!=null) {
+            bannerRepository.delete(banner);
+        }
         Wishlist wishlist=product.getWishlist();
-        wishlistRepository.delete(wishlist);
+        if(wishlist!=null) {
+            wishlistRepository.delete(wishlist);
+        }
 
 
         productRepository.delete(product);

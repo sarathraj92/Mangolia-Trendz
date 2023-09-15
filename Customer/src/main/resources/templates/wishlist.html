@@ -37,10 +37,15 @@
             <div th:if = "${success}" class = "text-center alert alert-success">
                 <p th:text = "${success}"></p>
             </div>
+            <div th:if="${check}" style="display: flex; flex-direction: column; align-items: center;">
+                <p class="text-center"  th:text="${check}"></p>
+                <a  th:href="@{/products-list}"><button class="btn btn-primary">Continue Shopping</button></a>
+            </div>
+
             <div class="row">
                 <div class="col-12">
                     <div class="table-responsive">
-                        <table class="table shopping-summery text-center">
+                        <table class="table shopping-summery text-center" th:unless="${check}">
                             <thead>
                             <tr class="main-heading">
                                 <th scope="col" colspan="2">Product</th>

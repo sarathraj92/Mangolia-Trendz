@@ -37,6 +37,11 @@ public class WishListController {
         Customer customer=customerService.findByEmail(principal.getName());
         List<Wishlist> wishlists=wishlistService.findAllByCustomer(customer);
 
+        if (wishlists.isEmpty()) {
+            model.addAttribute("check","You don't have any items in your WishList");
+
+        }
+
         model.addAttribute("wishlists",wishlists);
 
 

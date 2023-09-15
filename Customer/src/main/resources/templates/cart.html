@@ -26,8 +26,10 @@
         <div class="row">
             <div class="col-12">
                 <div class="table-responsive">
-                    <p class="text-center" th:if="${check}" th:text="${check}">
-                        </p>
+                    <div th:if="${check}" style="display: flex; flex-direction: column; align-items: center;">
+                    <p class="text-center"  th:text="${check}"></p>
+                        <a  th:href="@{/products-list}"><button class="btn btn-primary">Continue Shopping</button></a>
+                        </div>
                     <table class="table shopping-summery text-center clean" th:if="${grandTotal}">
                         <thead>
                         <tr class="main-heading">

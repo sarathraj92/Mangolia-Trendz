@@ -149,6 +149,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         shoppingCart.setCartItems(cartItemList);
         shoppingCart.setTotalPrice(totalPrice);
         shoppingCart.setTotalItems(totalItem);
+        if(cartItemList.isEmpty()){
+            shoppingCart.setCustomer(null);
+            shoppingCart.getCartItems().clear();
+            shoppingCart.setTotalPrice(0);
+            shoppingCart.setTotalItems(0);
+        }
         return shoppingCartRepository.save(shoppingCart);
     }
 

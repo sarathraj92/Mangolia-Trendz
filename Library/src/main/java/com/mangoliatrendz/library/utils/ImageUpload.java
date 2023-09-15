@@ -16,9 +16,9 @@ public class ImageUpload {
 
     String rootPath = System.getProperty("user.home");
 
-    String UPLOAD_FOLDER = rootPath + "/Mangolia-Trendz/Admin/src/main/resources/static/imgs/images";
+    String UPLOAD_FOLDER = "/home/ubuntu/Mangolia-Trendz/Admin/src/main/resources/static/imgs/images";
 
-    String UPLOAD_FOLDER_CUSTOMER =rootPath + "/Mangolia-Trendz/Customer/src/main/resources/static/imgs/images";
+    String UPLOAD_FOLDER_CUSTOMER ="/home/ubuntu/Mangolia-Trendz/Customer/src/main/resources/static/imgs/images";
 
 
     public String storeFile(MultipartFile file) throws IOException {
@@ -31,37 +31,19 @@ public class ImageUpload {
             Files.createDirectories(uploadPath);
             Files.createDirectories(uploadPathCustomer);
         }
-        try {
-            // Get the original filename
-            String originalFilename = file.getOriginalFilename();
 
-            // Save the file to the first directory
-            String filePath1 = UPLOAD_FOLDER + "/" + originalFilename;
-            file.transferTo(new File(filePath1));
+        try (InputStream inputStream = file.getInputStream()) {
+            byte[] buffer = new byte[inputStream.available()];
+            inputStream.read(buffer);
+            Path filePath = uploadPath.resolve(fileName);
+            Path filePathCustomer = uploadPathCustomer.resolve(fileName);
+            Files.write(filePath,buffer, StandardOpenOption.CREATE,StandardOpenOption.TRUNCATE_EXISTING);
+            Files.write(filePathCustomer,buffer, StandardOpenOption.CREATE,StandardOpenOption.TRUNCATE_EXISTING);
 
-            // Save the file to the second directory
-            String filePath2 = UPLOAD_FOLDER_CUSTOMER + "/" + originalFilename;
-            file.transferTo(new File(filePath2));
-
-            return originalFilename;
+            return fileName.toString();
         } catch (IOException e) {
-            return "File upload failed: " + e.getMessage();
+            throw new IOException("Could not store file " + fileName, e);
         }
-
-
-
-//        try (InputStream inputStream = file.getInputStream()) {
-//            byte[] buffer = new byte[inputStream.available()];
-//            inputStream.read(buffer);
-//            Path filePath = uploadPath.resolve(fileName);
-//            Path filePathCustomer = uploadPathCustomer.resolve(fileName);
-//            Files.write(filePath,buffer, StandardOpenOption.CREATE,StandardOpenOption.TRUNCATE_EXISTING);
-//            Files.write(filePathCustomer,buffer, StandardOpenOption.CREATE,StandardOpenOption.TRUNCATE_EXISTING);
-//
-//            return fileName.toString();
-//        } catch (IOException e) {
-//            throw new IOException("Could not store file " + fileName, e);
-//        }
     }
     public boolean checkExist(MultipartFile File){
         boolean isExist = false;
