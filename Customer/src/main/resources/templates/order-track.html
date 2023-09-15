@@ -43,7 +43,13 @@
                     </div>
                 </div>
             </header> <!-- card-header end// -->
-            <div class="card-body">
+            <div th:if="${order.orderStatus=='Cancelled' or order.orderStatus=='Returned'}">
+
+                <h2 th:text="${order.orderStatus}"></h2>
+
+            </div>
+
+            <div th:unless="${order.orderStatus=='Cancelled' or order.orderStatus=='Returned'}" class="card-body">
                 <div class="order-tracking mb-100">
                     <div class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between">
                         <div th:classappend="${pending==1 ?'completed':''}" class="step">

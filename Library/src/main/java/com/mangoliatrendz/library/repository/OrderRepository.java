@@ -21,10 +21,10 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
     Long countByOrderDateBetweenAndOrderStatus(@Param("startDate") LocalDate startDate,@Param("endDate") LocalDate endDate,@Param("orderStatus") String orderStatus);
 
 
-    @Query(value = "select COALESCE(SUM(o.totalPrice),0) FROM Order o where o.orderStatus = 'Confirmed'")
+    @Query(value = "select COALESCE(SUM(o.totalPrice),0) FROM Order o where o.orderStatus = 'Delivered'")
     Double getTotalConfirmedOrdersAmount();
 
-    @Query(value = "select COUNT(*) FROM Order o WHERE o.orderStatus='Confirmed'")
+    @Query(value = "select COUNT(*) FROM Order o WHERE o.orderStatus='Delivered'")
     Long countAllConfirmedOrders();
 
     @Query(value = "select COALESCE(SUM(total_price), 0) from orders where order_date between :startDate and :endDate and order_status = :orderStatus",nativeQuery = true)

@@ -32,13 +32,20 @@ public class ProductServiceImpl implements ProductService {
 
     private OrderDetailRepository orderDetailRepository;
 
+    private BannerRepository bannerRepository;
+
+    private WishlistRepository wishlistRepository;
+
     private ImageUpload imageUpload;
 
     @Autowired
     public ProductServiceImpl(ProductRepository productRepository, SizeRepository sizeRepository,
                               ColorRepository colorRepository,
                               ImageUpload imageUpload,ImageRepository imageRepository,CartItemRepository cartItemRepository,
-                              OrderDetailRepository orderDetailRepository) {
+                              OrderDetailRepository orderDetailRepository,
+                              BannerRepository bannerRepository,WishlistRepository wishlistRepository) {
+        this.wishlistRepository=wishlistRepository;
+        this.bannerRepository=bannerRepository;
         this.cartItemRepository=cartItemRepository;
         this.orderDetailRepository=orderDetailRepository;
         this.imageRepository=imageRepository;
@@ -274,6 +281,12 @@ public class ProductServiceImpl implements ProductService {
             orderDetail.setProduct(null);
             orderDetailRepository.save(orderDetail);
         }
+        Banner banner=product.getBanner();
+        bannerRepository.delete(banner);
+        Wishlist wishlist=product.getWishlist();
+        wishlistRepository.delete(wishlist);
+
+
         productRepository.delete(product);
     }
 

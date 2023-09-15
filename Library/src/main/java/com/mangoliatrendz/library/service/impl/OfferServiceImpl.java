@@ -247,15 +247,19 @@ public class OfferServiceImpl implements OfferService {
 
         if(offer.getOfferType().equals("Product")){
             Product product=productService.findBYId(offer.getOfferProductId());
-            product.setSalePrice(0);
-            productRepository.save(product);
+            if(product!=null) {
+                product.setSalePrice(0);
+                productRepository.save(product);
+            }
         }else{
             long applicable_id=offer.getOfferCategoryId();
             Category category= categoryService.findById(applicable_id);
             List<Product> productList = productService.findProductsByCategory(category.getId());
             for(Product product : productList){
-                product.setSalePrice(0);
-                productRepository.save(product);
+                if(product !=null) {
+                    product.setSalePrice(0);
+                    productRepository.save(product);
+                }
             }
         }
         offerRepository.deleteById(offer.getId());

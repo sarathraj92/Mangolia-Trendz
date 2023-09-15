@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Admin Dashboard</title>
+    <title>Orders</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,8 +20,7 @@
 <div class="screen-overlay"></div>
 <aside th:replace = "~{fragments::sidebar}"></aside>
 
-<main class="main-wrap">
-    <header th:replace="~{fragments::topbar}"></header>
+<main class="main-wrap mt-50">
 
     <div th:if="${success}" class="text-center alert alert-success">
         <p th:text="${success}">
@@ -54,7 +53,7 @@
                     <span th:text="${order.customer.firstName} + ' ' +  ${order.customer.lastName}"></span>
                 </td>
                 <td class="price-pr">
-                    <select th:unless="${#strings.equals(order.orderStatus, 'Cancelled')}"  id="order-status" th:data-order-id="${order.id}"  onchange="submitSelection(this.getAttribute('data-order-id'))"  name="orderStatus" class="form-control">
+                    <select  th:unless="${order.orderStatus=='Cancelled' or order.orderStatus=='Delivered' or order.orderStatus=='Returned' or order.orderStatus=='Pending'}"  id="order-status" th:data-order-id="${order.id}"  onchange="submitSelection(this.getAttribute('data-order-id'))"  name="orderStatus" class="form-control">
                         <option th:value = "null">-SELECT-</option>
                         <option value = "Shipped">Shipped</option>
                         <option value = "Delivered">Delivered</option>
@@ -69,7 +68,7 @@
                 </td>
                 <td>
                     <a th:href="@{/order-view/{id}(id = ${order.id})}" class="button-cancel" >View </a>
-                    <a th:unless="${order.orderStatus=='Cancelled'}" th:href="@{/cancel-order/{id}(id = ${order.id})}"
+                    <a th:if="${order.orderStatus=='Pending'}" th:href="@{/cancel-order/{id}(id = ${order.id})}"
                        onclick="if (!(confirm('Are you sure you want to Cancel this Order?'))) return false" >Cancel </a>
                     <a th:if="${order.orderStatus.equals('Pending')}"  th:href="@{/accept-order/{id}(id = ${order.id})}"
                        onclick="if (!(confirm('Are you sure you want to Accept this Order?'))) return false">Accept</a>

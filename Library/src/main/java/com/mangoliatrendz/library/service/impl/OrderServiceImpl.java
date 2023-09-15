@@ -135,7 +135,7 @@ public class OrderServiceImpl implements OrderService {
             LocalDate localStartDate=currentDate.withDayOfMonth(1);
             LocalDate localEndDate=currentDate.withDayOfMonth(currentDate.lengthOfMonth());
 
-            long orderCount= orderRepository.countByOrderDateBetweenAndOrderStatus(localStartDate,localEndDate,"Confirmed");
+            long orderCount= orderRepository.countByOrderDateBetweenAndOrderStatus(localStartDate,localEndDate,"Delivered");
             orderCounts.add(orderCount);
             currentDate = currentDate.plusMonths(1);
 
@@ -161,7 +161,7 @@ public class OrderServiceImpl implements OrderService {
         LocalDate currentDate = LocalDate.now();
         LocalDate startDate=currentDate.withDayOfMonth(1);
         LocalDate endDate=currentDate.withDayOfMonth(currentDate.lengthOfMonth());
-        Double totalAmount = orderRepository.getTotalConfirmedOrdersAmountForMonth(startDate,endDate,"Confirmed");
+        Double totalAmount = orderRepository.getTotalConfirmedOrdersAmountForMonth(startDate,endDate,"Delivered");
 
         return totalAmount;
     }
@@ -176,7 +176,7 @@ public class OrderServiceImpl implements OrderService {
             LocalDate localStartDate=currentDate.withDayOfMonth(1);
             LocalDate localEndDate=currentDate.withDayOfMonth(currentDate.lengthOfMonth());
 
-            Double totalRevenue = orderRepository.getTotalConfirmedOrdersAmountForMonth(localStartDate,localEndDate,"Confirmed");
+            Double totalRevenue = orderRepository.getTotalConfirmedOrdersAmountForMonth(localStartDate,localEndDate,"Delivered");
             totalRevenuePerMonth.add(totalRevenue);
             currentDate = currentDate.plusMonths(1);
 

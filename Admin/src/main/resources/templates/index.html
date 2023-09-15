@@ -21,8 +21,11 @@
 <div class="screen-overlay"></div>
 <aside th:replace = "~{fragments::sidebar}"></aside>
 
+<header th:replace="~{fragments::topbar}"></header>
+
+
 <main class="main-wrap">
-    <header th:replace="~{fragments::topbar}"></header>
+
     <section class="content-main">
         <div class="content-header">
             <div>
@@ -112,13 +115,6 @@
                 </div>
             </div>
 
-            <!--            <div class="col-xl-4 col-lg-12">-->
-<!--                <div class="card mb-4">-->
-<!--                    <article class="card-body">-->
-<!--                        <h5 class="card-title">Revenue Base on Area</h5>-->
-<!--                        <canvas id="myChart2" height="217"></canvas>-->
-<!--                    </article>-->
-<!--                </div>-->
                 <div class="card mb-4">
                     <div class="table-main table-responsive">
                         <table class="table" id="salesTable">

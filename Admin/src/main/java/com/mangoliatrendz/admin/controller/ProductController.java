@@ -1,5 +1,6 @@
 package com.mangoliatrendz.admin.controller;
 
+import com.mangoliatrendz.library.dto.CategoryDto;
 import com.mangoliatrendz.library.dto.ProductDto;
 import com.mangoliatrendz.library.model.*;
 import com.mangoliatrendz.library.service.*;
@@ -61,6 +62,7 @@ public class ProductController {
         model.addAttribute("sizes", sizes);
         model.addAttribute("colors", colors);
         model.addAttribute("productDto", new ProductDto());
+        model.addAttribute("categoryNew", new CategoryDto());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "redirect:/login";

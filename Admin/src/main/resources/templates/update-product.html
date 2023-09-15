@@ -9,7 +9,7 @@
   <meta property="og:type" content="">
   <meta property="og:url" content="">
   <meta property="og:image" content="">
-  <title>Add Banners</title>
+  <title>Update Products</title>
 
   <!-- Favicon -->
   <link rel="shortcut icon" type="image/x-icon" href="/imgs/theme/favicon.svg">
@@ -22,7 +22,6 @@
 <aside th:replace = "~{fragments::sidebar}"></aside>
 
 <main class="main-wrap">
-  <header th:replace="~{fragments::topbar}"></header>
 
   <div class="container-fluid">
     <form class="form-horizontal" th:action="@{/update-product/{id}(id = ${productDto.id})}" method="POST" th:object = "${productDto}"

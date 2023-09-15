@@ -44,7 +44,7 @@
                   <div class="product-image-slider">
                     <th:block th:each="image : ${productDto.image}">
                     <figure class="border-radius-10">
-                      <img th:src="@{'/imgs/images/' + ${image.getName()}}" alt="product image">
+                      <img th:src="@{|/imgs/images/${image.getName()}|}" alt="product image">
                     </figure>
                     </th:block>
 
@@ -52,7 +52,7 @@
                   <!-- THUMBNAILS -->
                   <div class="slider-nav-thumbnails pl-15 pr-15">
                     <th:block th:each="image : ${productDto.image}">
-                    <div><img th:src="@{'/imgs/images/' + ${image.getName()}}" alt="product image"></div>
+                    <div><img th:src="@{|/imgs/images/${image.getName()}|}" alt="product image"></div>
                     </th:block>
                   </div>
                 </div>

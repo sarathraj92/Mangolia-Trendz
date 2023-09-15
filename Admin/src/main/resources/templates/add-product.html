@@ -21,10 +21,14 @@
 <div class="screen-overlay"></div>
 <aside th:replace = "~{fragments::sidebar}"></aside>
 
-<main class="main-wrap">
-  <header th:replace="~{fragments::topbar}"></header>
+<main class="main-wrap mt-100">
 
   <div class="container-fluid">
+
+    <button type="button" class="btn btn-primary mb-25" data-bs-toggle="modal" data-bs-target="#AddCategoryModal"
+            data-whatever="@mdo">Add new category
+    </button>
+
     <form id="addProduct" class="form-horizontal" th:action="@{/save-product}" method="post" th:object = "${productDto}"
           enctype="multipart/form-data">
       <fieldset>
@@ -144,6 +148,34 @@
         <button type="submit" class="btn btn-primary">Save</button>
       </fieldset>
     </form>
+
+    <div class="modal fade" id="AddCategoryModal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleAddCategoryModalLabel"
+         aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleAddCategoryModalLabel">New Category</h5>
+          </div>
+          <div class="modal-body">
+            <form th:action="@{/save-category}" method="post">
+              <div class="form-group">
+                <label for="name" class="col-form-label">Category Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+              </div>
+              <div class="form-group">
+                <label for="description" class="col-form-label">Category Description:</label>
+                <input type="text" class="form-control" id="description" name="description" required>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   </div>
 
