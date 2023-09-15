@@ -165,7 +165,7 @@ public class ProductServiceImpl implements ProductService {
             productUpdate.setLongDescription(productDto.getLongDescription());
             productUpdate.setCostPrice(productDto.getCostPrice());
             productUpdate.setCurrentQuantity(productDto.getCurrentQuantity());
-            if (!imageProducts.isEmpty()) {
+            if (imageProducts != null && !imageProducts.isEmpty()) {
                 List<Image> imagesList = new ArrayList<>();
                 List<Image> image = imageRepository.findImageBy(id);
                 int i=0;
