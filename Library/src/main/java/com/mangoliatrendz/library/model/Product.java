@@ -26,7 +26,7 @@ public class Product {
     private double costPrice;
     private double salePrice;
 
-    @OneToMany(mappedBy = "product" ,cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.DETACH})
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "product" ,cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.DETACH})
     private List<Image> image;
 
     @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.DETACH}, fetch = FetchType.EAGER)
