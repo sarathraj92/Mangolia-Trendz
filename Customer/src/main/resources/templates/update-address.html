@@ -29,42 +29,32 @@
     <div th:if = "${error}">
         <p class = "alert alert-danger" th:text = "${error}"></p>
     </div>
-    <form method="post"  th:object="${addressDto}"  th:action="@{/update-address/{id}(id = ${addressDto.id})}">
+    <form id="addressForm" method="post"  th:object="${addressDto}"  th:action="@{/update-address/{id}(id = ${addressDto.id})}">
         <div class="row">
             <div class="form-group col-md-6">
                 <label>Address Line 1<span class="required">*</span></label>
-                <input required="" class="form-control square" name="address_line_1" type="text" th:field="*{address_line_1}">
-                <p th:errors="*{address_line_1}" class="text-danger"
-                   th:if="${#fields.hasErrors('address_line_1')}">
-                </p>
+                <input id="address_line_1" class="form-control square" name="address_line_1" type="text" th:field="*{address_line_1}">
+                <div class="error text-danger ms-2"></div>
             </div>
             <div class="form-group col-md-6">
                 <label>Address Line 2<span class="required">*</span></label>
-                <input required="" class="form-control square" name="address_line_2" type="text" th:field="*{address_line_2}">
-                <p th:errors="*{address_line_2}" class="text-danger"
-                   th:if="${#fields.hasErrors('address_line_2')}">
-                </p>
+                <input id="address_line_2" class="form-control square" name="address_line_2" type="text" th:field="*{address_line_2}">
+                <div class="error text-danger ms-2"></div>
             </div>
             <div class="form-group col-md-12">
                 <label>City <span class="required">*</span></label>
-                <input required="" class="form-control square" name="city" type="text" th:field="*{city}">
-                <p th:errors="*{city}" class="text-danger"
-                   th:if="${#fields.hasErrors('city')}">
-                </p>
+                <input id="city" class="form-control square" name="city" type="text" th:field="*{city}">
+                <div class="error text-danger ms-2"></div>
             </div>
             <div class="form-group col-md-12">
                 <label>Country<span class="required">*</span></label>
-                <input required="" class="form-control square" name="country" type="text" th:field="*{country}">
-                <p th:errors="*{country}" class="text-danger"
-                   th:if="${#fields.hasErrors('country')}">
-                </p>
+                <input id="country" class="form-control square" name="country" type="text" th:field="*{country}">
+                <div class="error text-danger ms-2"></div>
             </div>
             <div class="form-group col-md-12">
                 <label>PinCode<span class="required">*</span></label>
-                <input required="" class="form-control square" name="pincode" type="text" th:field="*{pincode}">
-                <p th:errors="*{pincode}" class="text-danger"
-                   th:if="${#fields.hasErrors('pincode')}">
-                </p>
+                <input id="pincode" class="form-control square" name="pincode" type="text" th:field="*{pincode}">
+                <div class="error text-danger ms-2"></div>
             </div>
             <div class="col-md-12">
                 <button type="submit" class="btn btn-fill-out submit" name="submit" value="Submit">Update</button>
@@ -83,6 +73,7 @@
 
 
 <div th:replace = "~{fragments::script}"></div>
+<script src="/js/address.js"></script>
 <script src="/js/shop.js?v=3.4"></script>
 </body>
 </html>

@@ -42,6 +42,15 @@
       <div th:if = "${error}" class = "text-center alert alert-danger">
         <p th:text = "${error}"></p>
       </div>
+
+<!--      <div class="row mt-50">-->
+<!--        <div class="col-lg-6 mt-25">-->
+<!--         -->
+<!--        </div>-->
+<!--        <div class="col-lg-6 mt-25">-->
+<!--          -->
+<!--        </div>-->
+<!--      </div>-->
       <div class="row mt-25">
         <div class="col-md-6" id="addressCards">
           <div class="mb-25 d-md-flex">
@@ -68,6 +77,45 @@
               <p><strong>[(${address.customer.firstName})]</strong></p>
               <address>[(${address.address_line_1})],[(${address.address_line_2})], [(${address.city})], [(${address.country})], [(${address.pincode})]</address>
               <address>Phone: [(${address.customer.mobileNumber})], Email: [(${address.customer.email})]</address>
+            </div>
+          </div>
+          <div class="toggle_info mt-20">
+            <span><i class="fi-rs-user mr-10"></i><span class="text-muted">Add New Address ?</span> <a href="#loginform" data-bs-toggle="collapse" class="collapsed" aria-expanded="false">Click here to Add Address</a></span>
+          </div>
+          <div class="panel-collapse collapse login_form" id="loginform">
+            <div class="panel-body">
+              <form id="addressForm" method="post"  th:object="${addressDto}"  th:action="@{/add-address-checkout}">
+                <div class="row mt-50">
+                  <div class="form-group col-md-6">
+                    <label>Address Line 1<span class="required">*</span></label>
+                    <input id="address_line_1" class="form-control square" name="address_line_1" type="text" th:field="*{address_line_1}">
+                    <div class="error text-danger ms-2"></div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Address Line 2<span class="required">*</span></label>
+                    <input id="address_line_2" class="form-control square" name="address_line_2" type="text" th:field="*{address_line_2}">
+                    <div class="error text-danger ms-2"></div>
+                  </div>
+                  <div class="form-group col-md-12">
+                    <label>City <span class="required">*</span></label>
+                    <input id="city" class="form-control square" name="city" type="text" th:field="*{city}">
+                    <div class="error text-danger ms-2"></div>
+                  </div>
+                  <div class="form-group col-md-12">
+                    <label>Country<span class="required">*</span></label>
+                    <input id="country" class="form-control square" name="country" type="text" th:field="*{country}">
+                    <div class="error text-danger ms-2"></div>
+                  </div>
+                  <div class="form-group col-md-12">
+                    <label>PinCode<span class="required">*</span></label>
+                    <input id="pincode" class="form-control square" name="pincode" type="text" th:field="*{pincode}">
+                    <div class="error text-danger ms-2"></div>
+                  </div>
+                  <div class="col-md-12">
+                    <button type="submit"  class="btn btn-fill-out submit" name="submit" value="Submit">Save</button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -139,73 +187,26 @@
             <button  class="btn btn-fill-out btn-block hover-up" onclick="placeOrder('hidden-form-placeorder')" >Place Order</button>
 
           </div>
-        </div>
-      </div>
-      <div class="col-lg-6 float-end mt-25">
-        <div class="toggle_info">
-          <span><i class="fi-rs-label mr-10"></i><span class="text-muted">Have a coupon?</span> <a href="#coupon" data-bs-toggle="collapse" class="collapsed" aria-expanded="false">Click here to enter your code</a></span>
-        </div>
-        <div class="panel-collapse collapse coupon_form " id="coupon">
-          <div class="panel-body">
-            <p class="mb-30 font-sm">If you have a coupon code, please apply it below.</p>
-            <form method="post" th:action="@{/check-out/apply-coupon}">
-              <div class="form-group">
-                <input type="text" th:value="${param.couponCode}" placeholder="Enter Coupon Code..." name="couponCode">
-              </div>
-              <div class="form-group">
-                <button class="btn  btn-md" type="submit" name="action" th:value="${param.couponCode == null ? 'apply' : 'remove'}" th:text="${param.couponCode == null ? 'Apply Coupon' : 'Remove Coupon'}"></button>
-              </div>
-            </form>
+          <div class="toggle_info mt-20">
+            <span><i class="fi-rs-label mr-10"></i><span class="text-muted">Have a coupon?</span> <a href="#coupon" data-bs-toggle="collapse" class="collapsed" aria-expanded="false">Click here to enter your code</a></span>
+          </div>
+          <div class="panel-collapse collapse coupon_form" id="coupon">
+            <div class="panel-body">
+              <p class="mb-30 font-sm">If you have a coupon code, please apply it below.</p>
+              <form method="post" th:action="@{/check-out/apply-coupon}">
+                <div class="form-group">
+                  <input type="text" th:value="${param.couponCode}" placeholder="Enter Coupon Code..." name="couponCode">
+                </div>
+                <div class="form-group">
+                  <button class="btn  btn-md" type="submit" name="action" th:value="${param.couponCode == null ? 'apply' : 'remove'}" th:text="${param.couponCode == null ? 'Apply Coupon' : 'Remove Coupon'}"></button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-      <div class="row mt-50">
-        <div class="col-12">
-          <h3>Add New Address</h3>
-          <form method="post"  th:object="${addressDto}"  th:action="@{/add-address}">
-            <div class="row mt-50">
-              <div class="form-group col-md-6">
-                <label>Address Line 1<span class="required">*</span></label>
-                <input required="" class="form-control square" name="address_line_1" type="text" th:field="*{address_line_1}">
-                <p th:errors="*{address_line_1}" class="text-danger"
-                   th:if="${#fields.hasErrors('address_line_1')}">
-                </p>
-              </div>
-              <div class="form-group col-md-6">
-                <label>Address Line 2<span class="required">*</span></label>
-                <input required="" class="form-control square" name="address_line_2" type="text" th:field="*{address_line_2}">
-                <p th:errors="*{address_line_2}" class="text-danger"
-                   th:if="${#fields.hasErrors('address_line_2')}">
-                </p>
-              </div>
-              <div class="form-group col-md-12">
-                <label>City <span class="required">*</span></label>
-                <input required="" class="form-control square" name="city" type="text" th:field="*{city}">
-                <p th:errors="*{city}" class="text-danger"
-                   th:if="${#fields.hasErrors('city')}">
-                </p>
-              </div>
-              <div class="form-group col-md-12">
-                <label>Country<span class="required">*</span></label>
-                <input required="" class="form-control square" name="country" type="text" th:field="*{country}">
-                <p th:errors="*{country}" class="text-danger"
-                   th:if="${#fields.hasErrors('country')}">
-                </p>
-              </div>
-              <div class="form-group col-md-12">
-                <label>PinCode<span class="required">*</span></label>
-                <input required="" class="form-control square" name="pincode" type="text" th:field="*{pincode}">
-                <p th:errors="*{pincode}" class="text-danger"
-                   th:if="${#fields.hasErrors('pincode')}">
-                </p>
-              </div>
-              <div class="col-md-12">
-                <button type="submit" class="btn btn-fill-out submit" name="submit" value="Submit">Save</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
+
+
     </div>
   </section>
 </main>
@@ -220,7 +221,11 @@
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <div th:replace = "~{fragments::script}"></div>
+
+<script src="/js/address.js"></script>
 <script>
+
+
 
   const urlParams = new URLSearchParams(window.location.search);
   const couponCode = urlParams.get("couponCode");

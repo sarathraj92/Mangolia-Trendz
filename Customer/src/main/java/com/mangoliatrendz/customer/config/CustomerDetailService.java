@@ -1,10 +1,10 @@
 package com.mangoliatrendz.customer.config;
 
-import com.mangoliatrendz.customer.exception.CustomerNotActivatedException;
-import com.mangoliatrendz.library.model.Admin;
+import com.mangoliatrendz.customer.exception.CustomerBlockedException;
+
+
 import com.mangoliatrendz.library.model.Customer;
 import com.mangoliatrendz.library.model.Role;
-import com.mangoliatrendz.library.repository.AdminRepository;
 import com.mangoliatrendz.library.repository.CustomerRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,8 +30,8 @@ public class CustomerDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Customer customer = customerRepository.findByEmail(email);
 
-            if(customer.is_activated()) {
-                if (customer != null) {
+            if(customer !=null) {
+                if (customer.is_activated()) {
 
                     List<GrantedAuthority> authorities = new ArrayList<>();
                     for (Role role : customer.getRoles()) {
@@ -49,10 +49,11 @@ public class CustomerDetailService implements UserDetailsService {
 
 
                 } else {
-                    throw new UsernameNotFoundException("Invalid username or password.");
+
+                    throw new CustomerBlockedException("Your account has been blocked. Please contact support.");
                 }
             }else{
-                throw new CustomerNotActivatedException("Customer is blocked");
+                throw new UsernameNotFoundException("Invalid username or password.");
             }
 
     }

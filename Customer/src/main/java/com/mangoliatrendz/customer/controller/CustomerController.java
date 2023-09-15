@@ -83,18 +83,24 @@ public class CustomerController {
     }
 
     @PostMapping("/add-address")
-    public String getAddAddress(@Valid @ModelAttribute("addressDto")AddressDto addressDto,
-                                BindingResult result,Model model,Principal principal){
+    public String getAddAddress(@ModelAttribute("addressDto")AddressDto addressDto,
+                                Model model,Principal principal){
 
-        if (result.hasErrors()) {
-            model.addAttribute("addressDto", addressDto);
-            return "redirect:/dashboard?tab=address";
-        }
           addressService.save(addressDto, principal.getName());
           model.addAttribute("success","Address Added");
 
             return "redirect:/dashboard?tab=address";
         }
+
+    @PostMapping("/add-address-checkout")
+    public String AddAddress(@ModelAttribute("addressDto")AddressDto addressDto,
+                                Model model,Principal principal,HttpServletRequest request){
+
+        addressService.save(addressDto, principal.getName());
+        model.addAttribute("success","Address Added");
+
+        return "redirect:" + request.getHeader("Referer");
+    }
 
 
         @GetMapping("/update-address/{id}")
@@ -110,7 +116,7 @@ public class CustomerController {
 
         @PostMapping("/update-address/{id}")
         public String updateAddress(@Valid@ModelAttribute("addressDto")AddressDto addressDto,Model model,
-                                    BindingResult result,HttpServletRequest request){
+                                    BindingResult result){
             if (result.hasErrors()) {
                 model.addAttribute("addressDto", addressDto);
                 return "update-address";
@@ -123,7 +129,7 @@ public class CustomerController {
         }
 
         @GetMapping("/delete-address/{id}")
-        public String deleteAddress(@PathVariable("id")Long address_id,Model model,HttpServletRequest request){
+        public String deleteAddress(@PathVariable("id")Long address_id,Model model){
 
             addressService.deleteAddress(address_id);
             model.addAttribute("success","Address Deleted");
@@ -134,7 +140,7 @@ public class CustomerController {
 
         @GetMapping("/enable-address/{id}")
         public String enableAddress(@PathVariable("id")long address_id,
-                                    RedirectAttributes redirectAttributes,HttpServletRequest request){
+                                    RedirectAttributes redirectAttributes){
 
             addressService.enable(address_id);
             redirectAttributes.addFlashAttribute("success","Address enabled");
@@ -144,7 +150,7 @@ public class CustomerController {
 
        @GetMapping("/disable-address/{id}")
        public String disableAddress(@PathVariable("id")long address_id,
-                                 RedirectAttributes redirectAttributes,HttpServletRequest request){
+                                 RedirectAttributes redirectAttributes){
 
         addressService.disable(address_id);
         redirectAttributes.addFlashAttribute("success","Address disabled");

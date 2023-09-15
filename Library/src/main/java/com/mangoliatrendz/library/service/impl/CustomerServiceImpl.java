@@ -100,7 +100,6 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer= findByEmail(email);
         customer.setFirstName(customerDto.getFirstName());
         customer.setLastName(customerDto.getLastName());
-        customer.setEmail(customerDto.getEmail());
         customer.setMobileNumber(customerDto.getMobileNumber());
         customerRepository.save(customer);
         CustomerDto customerDtoUpdated = convertEntityToDto(customer);
@@ -120,7 +119,6 @@ public class CustomerServiceImpl implements CustomerService {
         customerDto.setId(customer.getId());
         customerDto.setFirstName(customer.getFirstName());
         customerDto.setLastName(customer.getLastName());
-        customerDto.setEmail(customer.getEmail());
         customerDto.setMobileNumber(customer.getMobileNumber());
         customerDto.set_activated(customer.is_activated());
         customerDto.setPassword(customer.getPassword());
