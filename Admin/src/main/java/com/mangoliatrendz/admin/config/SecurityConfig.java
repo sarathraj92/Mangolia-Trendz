@@ -40,7 +40,7 @@ public class SecurityConfig {
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-                        .invalidSessionUrl("/login")
+                        .invalidSessionUrl("/login?logout")
                         .maximumSessions(1)
                         .maxSessionsPreventsLogin(false))
                 .formLogin(

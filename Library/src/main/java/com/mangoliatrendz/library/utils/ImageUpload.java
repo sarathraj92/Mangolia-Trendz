@@ -31,24 +31,42 @@ public class ImageUpload {
             Files.createDirectories(uploadPath);
             Files.createDirectories(uploadPathCustomer);
         }
+        try {
+            // Get the original filename
+            String originalFilename = file.getOriginalFilename();
 
-        try (InputStream inputStream = file.getInputStream()) {
-            byte[] buffer = new byte[inputStream.available()];
-            inputStream.read(buffer);
-            Path filePath = uploadPath.resolve(fileName);
-            Path filePathCustomer = uploadPathCustomer.resolve(fileName);
-            Files.write(filePath,buffer, StandardOpenOption.CREATE,StandardOpenOption.TRUNCATE_EXISTING);
-            Files.write(filePathCustomer,buffer, StandardOpenOption.CREATE,StandardOpenOption.TRUNCATE_EXISTING);
+            // Save the file to the first directory
+            String filePath1 = UPLOAD_FOLDER + "/" + originalFilename;
+            file.transferTo(new File(filePath1));
 
-            return fileName.toString();
+            // Save the file to the second directory
+            String filePath2 = UPLOAD_FOLDER_CUSTOMER + "/" + originalFilename;
+            file.transferTo(new File(filePath2));
+
+            return originalFilename;
         } catch (IOException e) {
-            throw new IOException("Could not store file " + fileName, e);
+            return "File upload failed: " + e.getMessage();
         }
+
+
+
+//        try (InputStream inputStream = file.getInputStream()) {
+//            byte[] buffer = new byte[inputStream.available()];
+//            inputStream.read(buffer);
+//            Path filePath = uploadPath.resolve(fileName);
+//            Path filePathCustomer = uploadPathCustomer.resolve(fileName);
+//            Files.write(filePath,buffer, StandardOpenOption.CREATE,StandardOpenOption.TRUNCATE_EXISTING);
+//            Files.write(filePathCustomer,buffer, StandardOpenOption.CREATE,StandardOpenOption.TRUNCATE_EXISTING);
+//
+//            return fileName.toString();
+//        } catch (IOException e) {
+//            throw new IOException("Could not store file " + fileName, e);
+//        }
     }
     public boolean checkExist(MultipartFile File){
         boolean isExist = false;
         try {
-            File file = new File(UPLOAD_FOLDER +"\\" + File.getOriginalFilename());
+            File file = new File(UPLOAD_FOLDER +"/" + File.getOriginalFilename());
             isExist = file.exists();
         }catch (Exception e){
             e.printStackTrace();
