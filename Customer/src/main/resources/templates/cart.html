@@ -48,7 +48,9 @@
                                      th:src="@{'/imgs/images/' + ${cartItem.product.image[0].getName()}}" >
                             </td>
                             <td class="product-des product-name">
+                                <a th:href="@{/product-full/{id}(id = ${cartItem.product.id})}">
                                 <h3 class="product-name" th:text="${cartItem.product.name}"></h3>
+                                </a>
                                 <h5 th:text="'Size : ' + ${cartItem.size}"></h5>
                             </td>
                             <td class="price" data-title="Price">

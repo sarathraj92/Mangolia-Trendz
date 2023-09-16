@@ -203,8 +203,14 @@
               </form>
             </div>
           </div>
+          <div class="mt-25" th:each="coupon : ${coupons}" style="border: 1px solid #ccc; padding: 10px; margin: 10px;">
+            <p th:text="${coupon.description}"></p>
+            <p>Code: <strong th:text="${coupon.code}"></strong></p>
+            <p>Discount % : <strong th:text="${coupon.offPercentage}"></strong></p>
+          </div>
         </div>
       </div>
+
 
 
     </div>

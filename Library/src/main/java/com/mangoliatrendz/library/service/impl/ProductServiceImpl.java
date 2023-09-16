@@ -165,7 +165,8 @@ public class ProductServiceImpl implements ProductService {
             productUpdate.setLongDescription(productDto.getLongDescription());
             productUpdate.setCostPrice(productDto.getCostPrice());
             productUpdate.setCurrentQuantity(productDto.getCurrentQuantity());
-            if (imageProducts != null && !imageProducts.isEmpty()) {
+            productRepository.save(productUpdate);
+            if (imageProducts != null && !imageProducts.isEmpty() && imageProducts.size()!=1) {
                 List<Image> imagesList = new ArrayList<>();
                 List<Image> image = imageRepository.findImageBy(id);
                 int i=0;
@@ -180,7 +181,7 @@ public class ProductServiceImpl implements ProductService {
                 productUpdate.setImage(imagesList);
             }
 
-            return productRepository.save(productUpdate);
+            return productUpdate;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

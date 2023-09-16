@@ -1,6 +1,7 @@
 package com.mangoliatrendz.customer.controller;
 
 import com.mangoliatrendz.library.dto.AddressDto;
+import com.mangoliatrendz.library.dto.CouponDto;
 import com.mangoliatrendz.library.model.*;
 import com.mangoliatrendz.library.service.*;
 import com.razorpay.RazorpayClient;
@@ -54,7 +55,9 @@ public class OrderController {
                 Set<CartItem> cartItems=cart.getCartItems();
                 List<Address> addressList = customer.getAddress();
                 Wallet wallet=walletService.findByCustomer(customer);
+                List<CouponDto> couponDto=couponService.getAllCoupons();
                 model.addAttribute("wallet",wallet);
+                model.addAttribute("coupons",couponDto);
                 model.addAttribute("addressDto",new AddressDto());
                 model.addAttribute("customer", customer);
                 model.addAttribute("addressList", addressList);

@@ -85,6 +85,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void cancelOrder(long order_id) {
         Order order=orderRepository.getById(order_id);
+        Customer customer=order.getCustomer();
+
         List<OrderDetail>orderDetailList=order.getOrderDetails();
         for(OrderDetail orderDetail : orderDetailList){
             Product product = orderDetail.getProduct();
@@ -96,6 +98,9 @@ public class OrderServiceImpl implements OrderService {
         }
         order.setOrderStatus("Cancelled");
         orderRepository.save(order);
+        if(order.getPaymentMethod().equals("Wallet") || order.getPaymentMethod().equals("RazorPay")){
+            walletService.returnCredit(order,customer);
+        }
     }
 
     @Override
