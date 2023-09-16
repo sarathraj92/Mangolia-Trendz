@@ -81,14 +81,16 @@ public class ShoppingCartController {
     public String updateCart(@RequestParam("id") Long id,
                              @RequestParam("cart_item_id")Long cart_item_id,
                              @RequestParam("quantity") int quantity,
+                             @RequestParam(value = "size",required = false,defaultValue = "0") long sizeId,
                              Model model,
                              Principal principal) {
         if (principal == null) {
             return "redirect:/login";
         } else {
+            System.out.println(sizeId);
             ProductDto productDto = productService.findById(id);
             String username = principal.getName();
-            ShoppingCart shoppingCart = shoppingCartService.updateCart(productDto, quantity, username,cart_item_id);
+            ShoppingCart shoppingCart = shoppingCartService.updateCart(productDto, quantity, username,cart_item_id,sizeId);
             model.addAttribute("shoppingCart", shoppingCart);
             return "redirect:/cart";
         }

@@ -118,13 +118,17 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public ShoppingCart updateCart(ProductDto productDto, int quantity, String username,Long cart_Item_Id) {
+    public ShoppingCart updateCart(ProductDto productDto, int quantity, String username,Long cart_Item_Id,long size_id) {
         Customer customer = customerService.findByEmail(username);
         ShoppingCart shoppingCart = customer.getCart();
+
         Set<CartItem> cartItemList = shoppingCart.getCartItems();
         CartItem item = find(cartItemList, productDto.getId(),cart_Item_Id);
         int itemQuantity = quantity;
-
+        if(size_id!= 0){
+            Size size = sizeService.findById(size_id);
+            item.setSize(size.getName());
+        }
         item.setQuantity(itemQuantity);
         cartItemRepository.save(item);
         shoppingCart.setCartItems(cartItemList);

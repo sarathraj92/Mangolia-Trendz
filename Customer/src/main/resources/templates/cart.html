@@ -52,6 +52,7 @@
                                 <h3 class="product-name" th:text="${cartItem.product.name}"></h3>
                                 </a>
                                 <h5 th:text="'Size : ' + ${cartItem.size}"></h5>
+
                             </td>
                             <td class="price" data-title="Price">
                                 <p th:unless="${cartItem.product.salePrice > 0}" th:text="${cartItem.product.costPrice}"></p>
@@ -64,6 +65,14 @@
                                     <input type="number" name="quantity" th:value="${cartItem.quantity}" size="4"
                                            value="1" min="0" step="1"
                                            class="c-input-text qty text">
+
+                                    <select id="product_categories" name="size" class="form-control w-auto" >
+                                        <option th:value = "null">-SELECT SIZE-</option>
+                                        <option th:each = "size : ${cartItem.product.sizes}"
+                                                th:value = "${size.id}"
+                                                th:text = "${size.name}">
+                                        </option>
+                                    </select>
                                 </td>
                                 <td class="total-pr">
                                     <p th:text="'₹' + ${cartItem.unitPrice * cartItem.quantity}"></p>
