@@ -58,7 +58,7 @@
         <div class="form-group">
           <label class="col-md-4 control-label" for="product_categories">PRODUCT CATEGORY</label>
           <div class="col-md-4">
-            <select id="product_categories" th:field = "*{category}" required name="product_categories" class="form-control">
+            <select id="product_categories" th:field = "*{category}"  name="product_categories" class="form-control">
               <option th:value = "null">-SELECT-</option>
               <option th:each = "category : ${categories}"
                       th:value = "${category.id}"
@@ -72,7 +72,7 @@
           <label class="col-md-4 control-label">Sizes</label>
           <div class="col-md-4">
             <div th:each="size : ${sizes}">
-              <input type="checkbox" name="sizes" required th:field="*{sizes}"
+              <input type="checkbox" name="sizes"  th:field="*{sizes}"
                      th:id="'product_variation_' + ${size.id}"
                      th:name="'product_Variations'"
                      th:value="${size.id}" />
@@ -86,7 +86,7 @@
           <label class="col-md-4 control-label">Colors</label>
           <div class="col-md-4">
             <div th:each="color : ${colors}">
-              <input type="checkbox" name="productVariations" required th:field="*{colors}"
+              <input type="checkbox" name="productVariations"  th:field="*{colors}"
                      th:id="'product_variation_' + ${color.id}"
                      th:name="'product_Variations'"
                      th:value="${color.id}" />
